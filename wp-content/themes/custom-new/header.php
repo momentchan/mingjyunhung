@@ -9,10 +9,6 @@
     <title>Ming Jyun Hung </title>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id="></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.0.9/css/jquery.mb.YTPlayer.min.css">
-    <script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mb.YTPlayer/3.0.9/jquery.mb.YTPlayer.min.js"></script>
-
 
 	<script>
         window.dataLayer = window.dataLayer || [];
