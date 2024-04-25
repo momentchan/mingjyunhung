@@ -1,0 +1,137 @@
+[03-Mar-2024 15:57:04 UTC] PHP Warning:  Undefined array key "priority" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-onboarding/includes/Services/PluginService.php on line 54
+[03-Mar-2024 15:57:14 UTC] Cron reschedule event error for hook: nfd_module_installer_theme_install_cron, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"ten_seconds","args":[],"interval":10}
+[03-Mar-2024 15:57:20 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:20 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:20 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:20 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:20 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:20 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:21 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 83
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_extented" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:57:23 UTC] PHP Warning:  Undefined array key "file_premium" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-plugin-hostgator/vendor/newfold-labs/wp-module-ecommerce/includes/RestApi/PluginsController.php on line 84
+[03-Mar-2024 15:58:25 UTC] Cron reschedule event error for hook: action_scheduler_run_queue, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"every_minute","args":["WP Cron"],"interval":60}
+[03-Mar-2024 15:59:38 UTC] Cron reschedule event error for hook: nfd_module_installer_plugin_install_cron, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"thirty_seconds","args":[],"interval":30}
+[03-Mar-2024 16:25:37 UTC] Cron reschedule event error for hook: nfd_data_sync_cron, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"minutely","args":[],"interval":60}
+[03-Mar-2024 16:57:22 UTC] Cron reschedule event error for hook: wpseo_indexable_index_batch, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"fifteen_minutes","args":[],"interval":900}
+[03-Mar-2024 17:30:35 UTC] Cron reschedule event error for hook: rsssl_every_five_minutes_hook, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"rsssl_five_minutes","args":[],"interval":300}
+[03-Mar-2024 17:30:35 UTC] Cron reschedule event error for hook: rsssl_every_three_hours_hook, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"rsssl_every_three_hours","args":[],"interval":10800}
+[03-Mar-2024 17:30:35 UTC] Cron reschedule event error for hook: rsssl_every_day_hook, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"rsssl_daily","args":[],"interval":86400}
+[03-Mar-2024 17:30:35 UTC] Cron reschedule event error for hook: rsssl_every_week_hook, Error code: invalid_schedule, Error message: Event schedule does not exist., Data: {"schedule":"rsssl_weekly","args":[],"interval":604800}
+[03-Mar-2024 17:37:23 UTC] PHP Warning:  Undefined array key "endpoints" in /home1/mingjyunhung/public_html/wp-content/plugins/wp-letsencrypt-ssl/classes/le-trait.php on line 935
+[03-Mar-2024 17:37:23 UTC] PHP Warning:  Trying to access array offset on value of type null in /home1/mingjyunhung/public_html/wp-content/plugins/wp-letsencrypt-ssl/classes/le-trait.php on line 935
+[03-Mar-2024 17:37:23 UTC] PHP Warning:  Trying to access array offset on value of type null in /home1/mingjyunhung/public_html/wp-content/plugins/wp-letsencrypt-ssl/classes/le-trait.php on line 935
+[04-Mar-2024 08:23:11 UTC] PHP Warning:  Undefined array key "link" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 1534
+[04-Mar-2024 08:23:11 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 508
+[04-Mar-2024 08:23:11 UTC] PHP Warning:  Undefined array key "link" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 1534
+[04-Mar-2024 08:23:11 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 508
+[04-Mar-2024 08:23:13 UTC] PHP Warning:  Undefined array key "link" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 1534
+[04-Mar-2024 08:23:13 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 508
+[04-Mar-2024 08:23:13 UTC] PHP Warning:  Undefined array key "link" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 1534
+[04-Mar-2024 08:23:13 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/global/shortcode.php on line 508
+[13-Mar-2024 03:27:05 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[25-Mar-2024 12:24:50 UTC] Cron unschedule event error for hook: wordfence_batchReportFailedAttempts, Error code: could_not_set, Error message: The cron event list could not be saved., Data: {"schedule":false,"args":[]}
+[27-Mar-2024 08:27:42 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[27-Mar-2024 12:55:30 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[28-Mar-2024 23:43:10 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[31-Mar-2024 15:49:50 UTC] Cron reschedule event error for hook: wf_scan_monitor, Error code: could_not_set, Error message: The cron event list could not be saved., Data: {"schedule":"wf_scan_monitor_interval","args":[],"interval":60}
+[01-Apr-2024 20:35:26 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[01-Apr-2024 20:56:19 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php
+[01-Apr-2024 20:56:19 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php
+[02-Apr-2024 01:56:19 UTC] PHP Fatal error:  Uncaught wfWAFStorageFileConfigException: Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php in /home1/mingjyunhung/public_html/wp-content/plugins/wordfence/vendor/wordfence/wf-waf/src/lib/storage/file.php:630
+Stack trace:
+#0 /home1/mingjyunhung/public_html/wp-content/plugins/wordfence/vendor/wordfence/wf-waf/src/lib/storage/file.php(627): wfWAFStorageFile->fetchConfigData('synced', true)
+#1 /home1/mingjyunhung/public_html/wp-content/plugins/wordfence/vendor/wordfence/wf-waf/src/lib/storage/file.php(563): wfWAFStorageFile->fetchConfigData('synced')
+#2 /home1/mingjyunhung/public_html/wp-content/plugins/wordfence/lib/wordfenceClass.php(8927): wfWAFStorageFile->getConfig('apiKey', NULL, 'synced')
+#3 /home1/mingjyunhung/public_html/wp-includes/class-wp-hook.php(324): wordfence::processAttackData()
+#4 /home1/mingjyunhung/public_html/wp-includes/class-wp-hook.php(348): WP_Hook->apply_filters('', Array)
+#5 /home1/mingjyunhung/public_html/wp-includes/plugin.php(565): WP_Hook->do_action(Array)
+#6 /home1/mingjyunhung/public_html/wp-cron.php(191): do_action_ref_array('wordfence_proce...', Array)
+#7 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-content/plugins/wordfence/vendor/wordfence/wf-waf/src/lib/storage/file.php on line 630
+[01-Apr-2024 20:57:23 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php
+[01-Apr-2024 20:57:23 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php
+[01-Apr-2024 20:57:30 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php
+[01-Apr-2024 20:57:35 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible. Path: /home1/mingjyunhung/public_html/wp-content/wflogs/config-synced.php
+[01-Apr-2024 20:57:37 America/Chicago] Error reading Wordfence Firewall config data, configuration file could be corrupted or inaccessible[02-Apr-2024 15:38:42 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[03-Apr-2024 04:59:33 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[03-Apr-2024 16:00:39 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[04-Apr-2024 08:41:28 UTC] Cron reschedule event error for hook: wpmr_hourly, Error code: could_not_set, Error message: The cron event list could not be saved., Data: {"schedule":"hourly","args":[],"interval":3600}
+[08-Apr-2024 04:38:48 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[10-Apr-2024 07:58:54 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[10-Apr-2024 14:28:26 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33
+[11-Apr-2024 04:44:08 America/Chicago] PHP Fatal error:  Uncaught Error: Undefined constant "ABSPATH" in /home1/mingjyunhung/public_html/wp-settings.php:33
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-settings.php on line 33

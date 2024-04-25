@@ -1,0 +1,8 @@
+[10-Mar-2024 17:15:24 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function __() in /home1/mingjyunhung/public_html/wp-admin/includes/file.php:16
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-admin/includes/file.php on line 16
+[13-Mar-2024 03:23:14 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function get_locale() in /home1/mingjyunhung/public_html/wp-admin/includes/admin.php:16
+Stack trace:
+#0 {main}
+  thrown in /home1/mingjyunhung/public_html/wp-admin/includes/admin.php on line 16

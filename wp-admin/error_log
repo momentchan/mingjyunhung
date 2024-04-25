@@ -1,0 +1,33 @@
+[04-Mar-2024 04:00:43 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2023/12/Pikachu_1.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 04:05:47 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2023/12/Pikachu_1.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:39:29 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2022/04/uncertainty.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:39:29 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2022/04/uncertainty.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:42:04 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2022/04/uncertainty.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:42:04 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2022/04/uncertainty.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:42:43 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2022/04/uncertainty.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:44:08 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2022/04/nbody.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 07:44:57 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2019/12/螢幕快照-2017-09-13-上午10.03.18-scaled.png): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156
+[04-Mar-2024 08:12:07 UTC] PHP Warning:  Undefined array key "gallery" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/ajax.php on line 222
+[04-Mar-2024 08:18:02 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1634
+[04-Mar-2024 08:18:02 UTC] PHP Warning:  Undefined array key "status" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1644
+[04-Mar-2024 08:18:02 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1634
+[04-Mar-2024 08:18:02 UTC] PHP Warning:  Undefined array key "status" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1644
+[04-Mar-2024 08:18:10 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1634
+[04-Mar-2024 08:18:10 UTC] PHP Warning:  Undefined array key "status" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1644
+[04-Mar-2024 08:18:10 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1634
+[04-Mar-2024 08:18:10 UTC] PHP Warning:  Undefined array key "status" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1644
+[04-Mar-2024 08:33:08 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1634
+[04-Mar-2024 08:33:08 UTC] PHP Warning:  Undefined array key "status" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1644
+[04-Mar-2024 08:33:08 UTC] PHP Warning:  Undefined array key "alt" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1634
+[04-Mar-2024 08:33:08 UTC] PHP Warning:  Undefined array key "status" in /home1/mingjyunhung/public_html/wp-content/plugins/envira-gallery-lite/includes/admin/metaboxes.php on line 1644
+[04-Mar-2024 08:42:27 UTC] PHP Warning:  file_get_contents(https://mingjyunhung.com/wp-content/uploads/2019/12/la-vita-è-bella.jpeg): Failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in /home1/mingjyunhung/public_html/wp-includes/class-wp-image-editor-imagick.php on line 156

@@ -1,0 +1,45 @@
+# Translation of Plugins - Media File Renamer &#8211; Auto &amp; Manual Rename - Stable (latest release) in English (UK)
+# This file is distributed under the same license as the Plugins - Media File Renamer &#8211; Auto &amp; Manual Rename - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-12-13 09:19:07+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: en_GB\n"
+"Project-Id-Version: Plugins - Media File Renamer &#8211; Auto &amp; Manual Rename - Stable (latest release)\n"
+
+#: common/admin.php:139
+msgid "<label>Hide <b>Meow Apps</b> Menu</label><br /><small>Hide Meow Apps menu and all its components, for a cleaner admin. This option will be reset if a new Meow Apps plugin is installed. <b>Once activated, an option will be added in your General settings to display it again.</b></small>"
+msgstr "<label>Hide <b>Meow Apps</b> Menu</label><br /><small>Hide Meow Apps menu and all its components, for a cleaner admin. This option will be reset if a new Meow Apps plugin is installed. <b>Once activated, an option will be added in your General settings to display it again.</b></small>"
+
+#: classes/rest.php:632
+msgid "Force Rename and Numbered Files cannot be used at the same time. Please use Force Rename only when you are trying to repair a broken install. For now, Force Rename has been disabled."
+msgstr "Force Rename and Numbered Files cannot be used at the same time. Please use Force Rename only when you are trying to repair a broken install. For now, Force Rename has been disabled."
+
+#: classes/rest.php:650
+msgid "The option Sync Media Title was turned off since it does not make sense to have it with this Auto-Rename mode."
+msgstr "The option Sync Media Title was turned off since it does not make sense to have it with this Auto-Rename mode."
+
+#: classes/rest.php:644
+msgid "The option Sync ALT was turned off since it does not make sense to have it with this Auto-Rename mode."
+msgstr "The option Sync ALT was turned off since it does not make sense to have it with this Auto-Rename mode."
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://meowapps.com"
+msgstr "https://meowapps.com/"
+
+#: common/admin.php:130 common/admin.php:131
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#. Author of the plugin
+msgid "Jordy Meow"
+msgstr "Jordy Meow"
+
+#. Plugin Name of the plugin
+msgid "Media File Renamer"
+msgstr "Media File Renamer"
