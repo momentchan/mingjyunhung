@@ -142,7 +142,7 @@ class Base {
         $pluginDownloadLink = admin_url( 'admin.php?page=dpwap_plugin&dpwap_plugin_download='.$path.'&f='.$folder.'&_wpnonce='.$nonce );
         $download_link = array(
             '<span class="dpwap_download-wrap">
-            <a href="'.esc_url($pluginDownloadLink).'" class="dpwap_download_link">'.esc_html__( 'Download', 'download-plugin' ).'</a></span>',
+            <a href="'.esc_url($pluginDownloadLink).'" class="dpwap_download_link">'.esc_html__( 'Download', 'download-plugin' ).'<span class="dashicons dashicons-download"></span></a></span>',
         );
         return array_merge( $links, $download_link );
     }

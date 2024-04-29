@@ -1,13 +1,13 @@
-=== WP Encryption - One Click Free SSL Certificate & SSL / HTTPS Redirect to Force HTTPS, SSL Score ===
+=== WP Encryption - One Click Free SSL Certificate & SSL / HTTPS Redirect to Force HTTPS, Security+ ===
 Contributors: gowebsmarty, gwsharsha
-Tags: free ssl,ssl,https,https redirect,ssl certificate,force ssl,mixed content,insecure content,force https
-Requires at least: 4.2
+Tags: security,ssl,https,https redirect,ssl certificate
+Requires at least: 5.4
 License: GPL3
-Tested up to: 6.4
-Requires PHP: 5.6
-Stable tag: 6.6.0
+Tested up to: 6.5
+Requires PHP: 7.0
+Stable tag: 7.2.0
 
-Lifetime SSL solution - Install free SSL certificate & enable secure HTTPS padlock, HTTPS redirect, secure mail w/ HTTPS, fix SSL errors, SSL score, SSL monitoring,insecure content scanner, download SSL certificate, know your active SSL details.
+Lifetime SSL solution & Security - Install free SSL certificate & enable HTTPS redirect, HTTPS mail, fix SSL errors, SSL score, SSL details & monitoring.
 
 == Description ==
 
@@ -17,7 +17,11 @@ HTTPS Secure your WordPress site with SSL certificate provided by [Let's Encrypt
 
 A typical SSL installation without WP Encryption would require you to generate CSR, prove domain ownership, provide your bussiness data and deal with many more technical tasks!.
 
-### 5M+ SSL certificates generated -- Switch to HTTPS easily ###
+= New Security Features - 1,000+ Reviews Special =
+
+(V7.0) NEW Vulnerability Scanner + Security page - Enable important security protocols to safeguard your site.
+
+### 5M+ SSL certificates generated - Switch to HTTPS easily ###
 
 https://youtu.be/aKvvVlAlZ14
 
@@ -60,7 +64,7 @@ https://youtu.be/jrkFwFH7r6o
 
 Navigate to SSL Health & Security page and run the vulnerability scanner to scan your WordPress, Plugins and Themes for known vulnerabilities. Keep everything updated to stay secure.
 
-== ADVANCED HTTPS SECURITY HEADERS ==
+== ADVANCED HTTP SECURITY HEADERS ==
 
 Safeguard your site from cross-site scripting attacks, clickjacking, MIME sniffing attacks.
 
@@ -149,6 +153,10 @@ Feel free to open a ticket in this plugin support form and we will try our best 
 = Should I configure anything for auto renewal of SSL certificates to work after upgrading to PRO version? =
 You don't need to configure anything. Once after you upgrade to PRO version and activate PRO plugin on your site, the auto renewal of SSL certificates will start working in background according to 60 days schedule i.e., 30 days prior to SSL certificate expiry date.
 
+= Site with Elementor is showing insecure https padlock even if SSL certificate is installed = 
+If your site built with Elementor is showing insecure https padlock even if SSL certificate is properly installed & valid, it could be due to insecure http:// assets being loaded in page builder blocks like image block. Please go to Elementor > Tools > Replace URL and replace http://yoursite.com with https://yoursite.com
+
+
 == Disclaimer ==
 
 WP Encryption uses SSLLabs API for SSL scan & detection. By using the plugin, you agree to terms & conditions of [SSLLabs](https://www.ssllabs.com/downloads/Qualys_SSL_Labs_Terms_of_Use.pdf)
@@ -167,10 +175,28 @@ Security is an important subject regarding SSL/TLS certificates, of course. It i
 
 == Changelog ==
 
+= 7.2.0 =
+* ajax plugin activation error fix
+* fixed issue with vulnerability scan setting not saving
+* store last csr for premium install process
+* re-check active ssl before showing short expiry & RF notice
+* mixed content scanner result improved
+* PRO - automatic SSL install for Plesk
+
+= 7.1.0 =
+* Free Version - Store SSL certificate & key in ssl/domain.com/ directory above web root to avoid public access in case htaccess is not supported
+* Store keys as option if root dir access is restricted
+
+= 7.0.0 =
+* PRO - CERT PANEL improvements
+* Free - New Vulnerability scanner & security page
+* Security Headers enforcing via WP hook
+
 = 6.6.0 =
-* Freemius sdk update
 * http file names correction
 * SSL labs scan improvements
+* Freemius SDK update to 2.6.2
+* Fixed issue with http verification file names
 
 = 6.5.0 =
 * PRO - resolved php path issue in crontab

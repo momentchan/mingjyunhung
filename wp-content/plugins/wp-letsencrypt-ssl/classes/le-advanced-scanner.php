@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty. All Rights Reserved.
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty. All Rights Reserved.
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 5.7.0
  *
@@ -42,6 +42,7 @@ class WPLE_DeepScanner
     if (empty($this->permalink_vs_mxresource)) {
       delete_option('wple_mixed_issues');
       echo 'success';
+      exit();
     }
 
     //have issues   
@@ -265,10 +266,12 @@ class WPLE_DeepScanner
       }
     }
 
-    $this->permalink_vs_mxresource[$pid] = [
-      'webpage' => $link,
-      'mx_resources' => $mx_resources
-    ];
+    if (!empty($mx_resources)) {
+      $this->permalink_vs_mxresource[$pid] = [
+        'webpage' => $link,
+        'mx_resources' => $mx_resources
+      ];
+    }
   }
 
   private function check_mxissues_within_cssjs($cssjs_url)
@@ -319,10 +322,12 @@ class WPLE_DeepScanner
       $count++;
     }
 
-    $this->permalink_vs_inlinemx[$pid] = [
-      'webpage' => $link,
-      'mx_resources' => $inline_issues
-    ];
+    if (!empty($inline_issues)) {
+      $this->permalink_vs_inlinemx[$pid] = [
+        'webpage' => $link,
+        'mx_resources' => $inline_issues
+      ];
+    }
   }
 
   private function find_widgets_insecure_items()

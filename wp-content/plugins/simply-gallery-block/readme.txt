@@ -4,9 +4,9 @@ Plugin URI: https://simplygallery.co
 Contributors: gallerycreator
 Tags: block, image gallery, video gallery, lightbox, gallery, wordpress gallery plugin
 Requires at least: 5.8.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 5.3.8
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,9 +127,15 @@ Yes! SimpLy Gallery Blocks's core features are absolutely free.
 
 == Changelog ==
 
+= 3.2.1 =
+* Fixed: a problem with the poster editor (impossibility to delete) in Items Manager
+* Updated: Twitter icon to X
+* Tweak: Updated Freemius SDK (2.7.2)
+* Fixed: minor bug fixes
+
 = 3.2.0 =
 * Fixed: bug with displaying Media Library Assistant categories and tags
-* Updated :system for loading the list of FileBird folders
+* Updated: system for loading the list of FileBird folders
 * Tweak: Updated Freemius SDK (2.6.2)
 * Fixed: minor bug fixes
 

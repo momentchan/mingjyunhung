@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 1.0.0
@@ -24,17 +24,15 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-class WPLE_Deactivator
-{
-    public static function deactivate()
-    {
+class WPLE_Deactivator {
+    public static function deactivate() {
         $opts = ( get_option( 'wple_opts' ) === FALSE ? array(
             'expiry' => '',
         ) : get_option( 'wple_opts' ) );
         //disable ssl forcing
         $opts['force_ssl'] = 0;
         update_option( 'wple_opts', $opts );
-        // retained - wple_opts, wple_show_reminder, wple_send_usage, wple_error, wple_complete, wple_failed_verification, wple_mixed_issues
+        // retained - wple_opts, wple_show_reminder, wple_send_usage, wple_error, wple_complete, wple_failed_verification, wple_mixed_issues, wple_priv_key
         $opts_to_delete = array(
             'wple_backup_suggested',
             'wple_show_review',
@@ -59,7 +57,8 @@ class WPLE_Deactivator
             'wple_failed_verification',
             'wple_sourceip',
             'wple_order_refreshed',
-            'wple_sourceip_enable'
+            'wple_sourceip_enable',
+            'wple_parent_reachable'
         );
         foreach ( $opts_to_delete as $optname ) {
             delete_option( $optname );
@@ -82,19 +81,15 @@ class WPLE_Deactivator
             @unlink( WPLE_DEBUGGER . 'debug.log' );
         }
         //clean force https rules in htaccess
-        
         if ( is_writable( ABSPATH . '.htaccess' ) ) {
             $htaccess = file_get_contents( ABSPATH . '.htaccess' );
             $group = "/#\\s?BEGIN\\s?WP_Encryption_Force_SSL.*?#\\s?END\\s?WP_Encryption_Force_SSL/s";
-            
             if ( preg_match( $group, $htaccess ) ) {
                 $modhtaccess = preg_replace( $group, "", $htaccess );
                 //insert_with_markers(ABSPATH . '.htaccess', '', $modhtaccess);
                 file_put_contents( ABSPATH . '.htaccess', $modhtaccess );
             }
-        
         }
-    
     }
 
 }

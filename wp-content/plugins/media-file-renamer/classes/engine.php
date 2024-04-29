@@ -183,6 +183,7 @@ class Meow_MFRH_Engine {
 		// This filter permits developers to allow or not the renaming of certain files.
 		$allowed = apply_filters( 'mfrh_allow_rename', true, $media, $manual_filename );
 		if ( !$allowed ) {
+			$this->core->log( "🚫 The renaming of this file is not allowed." );
 			return $post;
 		}
 
@@ -202,7 +203,7 @@ class Meow_MFRH_Engine {
 		$force_rename = apply_filters( 'mfrh_force_rename', false );
 
 		// Check attachment
-		$need_rename = $this->core->check_attachment( $post, $output, $manual_filename, $force_rename );
+		$need_rename = $this->core->check_attachment( $post, $output, $manual_filename, $force_rename, false );
 		
 		if ( $force_rename &&  is_null( $output['proposed_filename'] ) ) {
 			$this->core->log( "🚫 Force Rename is enabled, but the proposed filename is null. Generating a new one without force rename." );
@@ -212,6 +213,7 @@ class Meow_MFRH_Engine {
 
 		if ( !$need_rename ) {
 			delete_post_meta( $id, '_require_file_renaming' );
+			$this->core->log( "🚫 The file doesn't require renaming." );
 			return $post;
 		}
 
@@ -274,7 +276,7 @@ class Meow_MFRH_Engine {
 		// Check for issues with the files
 		if ( !$force_rename && !file_exists( $old_filepath ) ) {
 			$this->core->log( "The original file ($old_filepath) cannot be found." );
-			return $post;
+			return [ 'warning' => '⚠️ The original file cannot be found.' ];
 		}
 
 		// Get the attachment meta
@@ -287,7 +289,7 @@ class Meow_MFRH_Engine {
 
 		if ( !$original_is_ideal && !$case_issue && !$force_rename && file_exists( $new_filepath ) ) {
 			$this->core->log( "The new file already exists ($new_filepath). It is not a case issue. Renaming cancelled." );
-			return $post;
+			return [ 'warning' => '⚠️ The new filename already exists. Renaming cancelled.' ];
 		}
 
 		// Keep the original filename (that's for the "Undo" feature)

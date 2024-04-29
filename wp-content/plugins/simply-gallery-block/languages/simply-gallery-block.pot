@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2+.
 msgid ""
 msgstr ""
-"Project-Id-Version: SimpLy Gallery Block & Lightbox 3.2.0\n"
+"Project-Id-Version: SimpLy Gallery Block & Lightbox 3.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sgb-global-plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-04T09:41:37+00:00\n"
+"POT-Creation-Date: 2024-04-28T09:09:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: simply-gallery-block\n"
@@ -90,6 +90,11 @@ msgstr ""
 
 #: blocks/simply_post.php:405
 msgid "Albums"
+msgstr ""
+
+#: blocks/simply_post.php:432
+msgctxt "Post Type General Name"
+msgid "SimpLy Galleries"
 msgstr ""
 
 #: blocks/simply_post.php:434
@@ -198,7 +203,7 @@ msgstr ""
 #: dist/premium-pages/page.build.js:1
 #: src/components/inspectors/LightboxInspector.js:208
 #: src/components/inspectors/ThumbnailsUniInspector.js:183
-#: src/components/ItemsManager.js:1869
+#: src/components/ItemsManager.js:1870
 #: src/post_editor/blocks/albums_components/InspectorGalleriesManager.js:42
 msgid "Title"
 msgstr ""
@@ -547,7 +552,7 @@ msgstr ""
 #: dist/albums.page.build.js:1
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1885
+#: src/components/ItemsManager.js:1886
 #: src/post_editor/blocks/albums_components/InspectorGalleriesManager.js:52
 msgid "Order Direction"
 msgstr ""
@@ -1133,7 +1138,7 @@ msgstr ""
 #: src/components/inspectors/PortfolioInspector.js:203
 #: src/components/inspectors/ThumbnailsUniInspector.js:182
 #: src/components/inspectors/ViewerInspectorSlider.js:190
-#: src/components/ItemsManager.js:1870
+#: src/components/ItemsManager.js:1871
 msgid "Caption"
 msgstr ""
 
@@ -2564,31 +2569,31 @@ msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:126
+#: src/components/ItemsManager.js:127
 msgid "Are you really want remove all images?"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:134
+#: src/components/ItemsManager.js:135
 msgid "Are you sure you want to remove selected items from the gallery?"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:272
+#: src/components/ItemsManager.js:273
 msgid "Add Poster"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:284
+#: src/components/ItemsManager.js:285
 msgid "Add Link"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:296
+#: src/components/ItemsManager.js:297
 #: src/components/toolbar.js:45
 #: src/post_editor/blocks/albums_components/GlobalAlbumToolbar.js:54
 msgid "Edit"
@@ -2596,285 +2601,285 @@ msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:308
+#: src/components/ItemsManager.js:309
 msgid "Add Tags"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:320
+#: src/components/ItemsManager.js:321
 msgid "Remove"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:338
+#: src/components/ItemsManager.js:339
 msgid "Choose an image"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:761
+#: src/components/ItemsManager.js:762
 msgid "Invalid URL"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1250
+#: src/components/ItemsManager.js:1251
 msgid "Loading..."
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1293
+#: src/components/ItemsManager.js:1294
 msgid "Dynamic Mode - track changes to Media Library Items."
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1302
-#: src/components/ItemsManager.js:1452
+#: src/components/ItemsManager.js:1303
+#: src/components/ItemsManager.js:1453
 msgid "Set cache time in hours for this Gallery"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1395
+#: src/components/ItemsManager.js:1396
 #: src/components/toolbar.js:57
 msgid "Add Media"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1398
+#: src/components/ItemsManager.js:1399
 #: src/components/MediaPlaceholder.js:28
 msgid "+ Add Media"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1403
-#: src/components/ItemsManager.js:1407
+#: src/components/ItemsManager.js:1404
+#: src/components/ItemsManager.js:1408
 msgid "Clear Gallery"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1415
-#: src/components/ItemsManager.js:1420
+#: src/components/ItemsManager.js:1416
+#: src/components/ItemsManager.js:1421
 msgid "Select Source for Gallery"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1418
+#: src/components/ItemsManager.js:1419
 msgid "Change Playlist"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1419
+#: src/components/ItemsManager.js:1420
 msgid "Change Collection"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1427
-#: src/components/ItemsManager.js:1430
+#: src/components/ItemsManager.js:1428
+#: src/components/ItemsManager.js:1431
 msgid "Convert to Static collection"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1441
+#: src/components/ItemsManager.js:1442
 #: src/components/toolbar.js:65
 msgid "Reload Gallery"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1468
+#: src/components/ItemsManager.js:1469
 msgid "Export Media"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1476
+#: src/components/ItemsManager.js:1477
 msgid "Copy IDs of this gallery items?"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
 #: src/components/grids-edit.js:1188
-#: src/components/ItemsManager.js:1488
+#: src/components/ItemsManager.js:1489
 msgid "Cancel"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1507
+#: src/components/ItemsManager.js:1508
 msgid "Copy"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1513
+#: src/components/ItemsManager.js:1514
 msgid "Import Media"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1525
+#: src/components/ItemsManager.js:1526
 msgid "Delete from Gallery"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1534
+#: src/components/ItemsManager.js:1535
 msgid "Bulk Edit Tags"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1547
+#: src/components/ItemsManager.js:1548
 msgid "Bulk Select"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1560
-#: src/components/ItemsManager.js:1598
-#: src/components/ItemsManager.js:1636
+#: src/components/ItemsManager.js:1561
+#: src/components/ItemsManager.js:1599
+#: src/components/ItemsManager.js:1637
 msgid "Static Mode"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1573
+#: src/components/ItemsManager.js:1574
 msgid "In this mode, the playlist will no longer receive updates from the source (YouTube), but you can customize the ordering and content of this gallery."
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1581
+#: src/components/ItemsManager.js:1582
 msgid "Set cache time in hours for this Playlist"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1611
+#: src/components/ItemsManager.js:1612
 msgid "In this mode, the collection will no longer receive updates from the source (Vimeo), but you can customize the ordering and content of this gallery."
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1619
+#: src/components/ItemsManager.js:1620
 msgid "Set cache time in hours for this Collection"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1644
+#: src/components/ItemsManager.js:1645
 msgid "In this mode, the gallery will no longer receive updates from the source, but you can customize the ordering and content of this gallery."
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1652
+#: src/components/ItemsManager.js:1653
 msgid "Set cache time in hours for this gallery"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1670
+#: src/components/ItemsManager.js:1671
 msgid "Selected"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1675
+#: src/components/ItemsManager.js:1676
 msgid "Select All"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1686
+#: src/components/ItemsManager.js:1687
 msgid "No files"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1688
+#: src/components/ItemsManager.js:1689
 msgid " file"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1688
+#: src/components/ItemsManager.js:1689
 msgid " files"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1697
+#: src/components/ItemsManager.js:1698
 msgid "Poster Image"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
 #: dist/premium-pages/page.build.js:1
-#: src/components/ItemsManager.js:1772
+#: src/components/ItemsManager.js:1773
 #: src/option_page_pim/PluginPimSettingsPage.js:1793
 msgid "Add New "
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1794
+#: src/components/ItemsManager.js:1795
 msgid "Get from Tag storage"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1800
+#: src/components/ItemsManager.js:1801
 msgid "Reload Tags list"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
 #: dist/premium-pages/page.build.js:1
-#: src/components/ItemsManager.js:1811
+#: src/components/ItemsManager.js:1812
 #: src/option_page_pim/PluginPimSettingsPage.js:1802
 msgid "Tags list is empty!"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1865
+#: src/components/ItemsManager.js:1866
 msgid "Order by"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1867
+#: src/components/ItemsManager.js:1868
 msgid "Custom"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1868
+#: src/components/ItemsManager.js:1869
 msgid "Uploaded"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1871
+#: src/components/ItemsManager.js:1872
 msgid "Alt Text"
 msgstr ""
 
 #: dist/blocks.build.js:1
 #: dist/premium-blocks/blocks_pim.build.js:1
-#: src/components/ItemsManager.js:1872
+#: src/components/ItemsManager.js:1873
 msgid "Random"
 msgstr ""
 
@@ -5102,19 +5107,19 @@ msgstr ""
 msgid "Upgrade"
 msgstr ""
 
-#: src/components/ItemsManager.js:1716
+#: src/components/ItemsManager.js:1717
 msgid "Item Tags"
 msgstr ""
 
-#: src/components/ItemsManager.js:1716
+#: src/components/ItemsManager.js:1717
 msgid "Bulk Edit - Tags"
 msgstr ""
 
-#: src/components/ItemsManager.js:1776
+#: src/components/ItemsManager.js:1777
 msgid "Enter a comma separated list of Tags to apply to this item."
 msgstr ""
 
-#: src/components/ItemsManager.js:1777
+#: src/components/ItemsManager.js:1778
 msgid "Enter a comma separated list of Tags to apply to this items."
 msgstr ""
 

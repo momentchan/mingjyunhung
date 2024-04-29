@@ -45,6 +45,12 @@ class Meow_MFRH_Rest
 				'permission_callback' => array( $this->core, 'can_access_features' ),
 				'callback' => array( $this, 'rest_reset_options' )
 			) );
+			register_rest_route( $this->namespace, '/reset_metadata', array(
+				'methods' => 'POST',
+				'permission_callback' => array( $this->core, 'can_access_features' ),
+				'callback' => array( $this, 'rest_reset_metadata' )
+			) );
+
 		}
 
 		// STATS & LISTING
@@ -321,7 +327,13 @@ class Meow_MFRH_Rest
 	function rest_sync_fields( $request ) {
 		$params = $request->get_json_params();
 		$mediaId = (int)$params['mediaId'];
-		do_action( 'mfrh_media_resync', $mediaId );
+
+		$post = get_post( $mediaId, ARRAY_A );
+		if ( !$post ) {
+			return new WP_REST_Response( [ 'success' => false, 'message' => 'The media ID is invalid.' ], 200 );
+		}
+
+		do_action( 'mfrh_media_resync', $post );
 		return new WP_REST_Response( [ 'success' => true, 'data' => [] ], 200 );
 	}
 
@@ -351,19 +363,27 @@ class Meow_MFRH_Rest
 	function rest_rename( $request ) {
 		$params = $request->get_json_params();
 		$mediaId = (int)$params['mediaId'];
-		$renameMethod = isset( $params['renameMethod'] ) ? (string)$params['renameMethod'] : null;
 		$filename = isset( $params['filename'] ) ? (string)$params['filename'] : null;
-
-		// Rename all with Vision
-		if ( $renameMethod == 'vision' && empty( $filename ) ) {
-			$suggestion = $this->rest_ai_suggest( [ 'mediaId' => $mediaId, 'type' => 'filename' ] );
-			$filename = $suggestion->data[ 'data' ];
+		$renameMethod = isset( $params['renameMethod'] ) ? (string)$params['renameMethod'] : null;
+		if ( $filename && $renameMethod === 'auto' ) {
+			$this->core->log( 'The rename method is set to Auto but a filename is provided. The filename will be ignored.' );
+			$filename = null;
 		}
 
-		$res = $this->core->engine->rename( $mediaId, $filename, false, $renameMethod ?? 'auto' );
-		$entry = $this->core->get_media_status_one( $mediaId );
+		try {
+			$res = $this->core->engine->rename( $mediaId, $filename, false, $renameMethod ?? 'auto' );
+			$entry = $this->core->get_media_status_one( $mediaId );
+			$response = [ 'success' => !!$res, 'data' => $entry ];
 
-		return new WP_REST_Response( [ 'success' => !!$res, 'data' => $entry ], 200 );
+			if ( array_key_exists( 'warning', $res ) ) {
+				$response['warning'] = $res['warning'];
+			}
+
+			return new WP_REST_Response( $response, 200 );
+		}
+		catch ( Exception $e ) {
+			return new WP_REST_Response( [ 'success' => false, 'message' => $e->getMessage() ], 200 );
+		}
 	}
 
 	function rest_move( $request ) {
@@ -515,66 +535,62 @@ class Meow_MFRH_Rest
 	 *
 	 * @param integer $skip
 	 * @param integer $limit
-	 * @return void
+	 * @param string $filterBy
+	 * @param string $orderBy
+	 * @param string $order
+	 * @param string|null $search
+	 * @return array
 	 */
-	function get_media_status( $skip = 0, $limit = 10, $filterBy = 'pending',
-		$orderBy = 'post_title', $order = 'asc', $search = null ) {
+	function get_media_status(
+		$skip = 0,
+		$limit = 10,
+		$filterBy = 'pending',
+		$orderBy = 'post_title',
+		$order = 'asc',
+		$search = null
+	) {
 		global $wpdb;
 
-		// I used this before to gather the metadata in a json object
-		// JSON_OBJECTAGG(pm.meta_key, pm.meta_value) as meta
-		// That was cool, but I prefer the MAX technique in order to apply filters
 		$havingSql = '';
 		if ( $filterBy === 'pending' ) {
 			$havingSql = 'HAVING pending IS NOT NULL';
-		}
-		else if ( $filterBy === 'renamed' ) {
+		} else if ( $filterBy === 'renamed' ) {
 			$havingSql = 'HAVING original_filename IS NOT NULL';
-		}
-		else if ( $filterBy === 'unrenamed' ) {
+		} else if ( $filterBy === 'unrenamed' ) {
 			$havingSql = 'HAVING original_filename IS NULL';
-		}
-		else if ( $filterBy === 'locked' ) {
+		} else if ( $filterBy === 'locked' ) {
 			$havingSql = 'HAVING locked IS NOT NULL';
-		}
-		else if ( $filterBy === 'unlocked' ) {
+		} else if ( $filterBy === 'unlocked' ) {
 			$havingSql = 'HAVING locked IS NULL';
 		}
+
 		$orderSql = 'ORDER BY p.ID DESC';
-		if ($orderBy === 'post_title') {
+		if ( $orderBy === 'post_title' ) {
 			$orderSql = 'ORDER BY post_title ' . ( $order === 'asc' ? 'ASC' : 'DESC' );
-		}
-		else if ($orderBy === 'post_parent') {
+		} else if ( $orderBy === 'post_parent' ) {
 			$orderSql = 'ORDER BY post_parent ' . ( $order === 'asc' ? 'ASC' : 'DESC' );
-		}
-		else if ($orderBy === 'current_filename') {
+		} else if ( $orderBy === 'current_filename' ) {
 			$orderSql = 'ORDER BY current_filename ' . ( $order === 'asc' ? 'ASC' : 'DESC' );
 		}
+
 		$whereSql = '';
-		if ($search) {
+		if ( $search ) {
 			$searchValue = '%' . $wpdb->esc_like( $search ) . '%';
-			if ($havingSql) {
-				$havingSql = $wpdb->prepare( "$havingSql AND ( post_title LIKE %s OR current_filename LIKE %s )",
-					$searchValue, $searchValue );
-			}
-			else {
-				$whereSql = $wpdb->prepare( "AND ( p.post_title LIKE %s OR pm.meta_value LIKE %s )",
-					$searchValue, $searchValue );
-			}
+			$whereSql = $wpdb->prepare( "AND (p.post_title LIKE %s OR pm.meta_value LIKE %s)", $searchValue, $searchValue );
 		}
+
 		$innerJoinCondition = '';
 		if ( $this->core->featured_only ) {
 			$innerJoinCondition = "INNER JOIN $wpdb->postmeta pmm ON pmm.meta_value = p.ID AND pmm.meta_key = '_thumbnail_id'";
-		}
-		else {
+		} else {
 			if ( $this->core->images_only ) {
 				$images_mime_types = implode( "','", $this->core->images_mime_types );
-				$whereSql .= "$whereSql AND p.post_mime_type IN ( '$images_mime_types' )";
+				$whereSql .= "$whereSql AND p.post_mime_type IN ('$images_mime_types')";
 			}
 		}
-		$entries = $wpdb->get_results( 
-			$wpdb->prepare( "SELECT p.ID, p.post_title, p.post_parent,  p.post_content AS image_description,
-				p.post_excerpt AS image_caption,
+
+		$request = $wpdb->prepare( "
+			SELECT p.ID, p.post_title, p.post_parent, p.post_content AS image_description, p.post_excerpt AS image_caption,
 				MAX(CASE WHEN pm.meta_key = '_wp_attached_file' THEN pm.meta_value END) AS current_filename,
 				MAX(CASE WHEN pm.meta_key = '_original_filename' THEN pm.meta_value END) AS original_filename,
 				MAX(CASE WHEN pm.meta_key = '_wp_attachment_metadata' THEN pm.meta_value END) AS metadata,
@@ -582,34 +598,43 @@ class Meow_MFRH_Rest
 				MAX(CASE WHEN pm.meta_key = '_require_file_renaming' THEN pm.meta_value END) AS pending,
 				MAX(CASE WHEN pm.meta_key = '_manual_file_renaming' THEN pm.meta_value END) AS locked,
 				MAX(CASE WHEN pm.meta_key = '_mfrh_history' THEN pm.meta_value END) AS history
+			FROM (
+				SELECT p.ID,
+					MAX(CASE WHEN pm.meta_key = '_original_filename' THEN pm.meta_value END) AS original_filename,
+					MAX(CASE WHEN pm.meta_key = '_require_file_renaming' THEN pm.meta_value END) AS pending,
+					MAX(CASE WHEN pm.meta_key = '_manual_file_renaming' THEN pm.meta_value END) AS locked
 				FROM $wpdb->posts p
 				$innerJoinCondition
-				INNER JOIN $wpdb->postmeta pm ON pm.post_id = p.ID
-				WHERE post_type='attachment'
-					AND post_status='inherit'
-					AND (pm.meta_key = '_wp_attached_file' 
-						OR pm.meta_key = '_original_filename'
-						OR pm.meta_key = '_wp_attachment_metadata'
-						OR pm.meta_key = '_wp_attachment_image_alt'
-						OR pm.meta_key = '_require_file_renaming'
-						OR pm.meta_key = '_manual_file_renaming'
-						OR pm.meta_key = '_mfrh_history'
-					) 
+				JOIN $wpdb->postmeta pm ON pm.post_id = p.ID
+				WHERE p.post_type = 'attachment'
+					AND p.post_status = 'inherit'
 					$whereSql
 				GROUP BY p.ID
 				$havingSql
-				$orderSql
-				LIMIT %d, %d", $skip, $limit 
-			)
-		);
+			) AS filtered_posts
+			JOIN $wpdb->posts p ON p.ID = filtered_posts.ID
+			JOIN $wpdb->postmeta pm ON pm.post_id = p.ID
+			WHERE (pm.meta_key = '_wp_attached_file'
+					OR pm.meta_key = '_original_filename'
+					OR pm.meta_key = '_wp_attachment_metadata'
+					OR pm.meta_key = '_wp_attachment_image_alt'
+					OR pm.meta_key = '_require_file_renaming'
+					OR pm.meta_key = '_manual_file_renaming'
+					OR pm.meta_key = '_mfrh_history')
+			GROUP BY p.ID
+			$orderSql
+			LIMIT %d, %d
+		", $skip, $limit );
+
+		$entries = $wpdb->get_results( $request );
+
 		foreach ( $entries as $entry ) {
 			$this->core->consolidate_media_status( $entry );
 			$entry->history = unserialize( $entry->history );
 		}
+
 		return $entries;
 	}
-
-	
 
 	function rest_media( $request ) {
 		$limit = trim( $request->get_param('limit') );
@@ -619,6 +644,7 @@ class Meow_MFRH_Rest
 		$order = trim( $request->get_param('order') );
 		$search = trim( $request->get_param('search') );
 		$entries = $this->get_media_status( $skip, $limit, $filterBy, $orderBy, $order, $search );
+		
 		return new WP_REST_Response( [ 'success' => true, 'data' => $entries ], 200 );
 	}
 
@@ -629,6 +655,11 @@ class Meow_MFRH_Rest
 	function rest_reset_options() {
 		$this->core->reset_options();
 		return new WP_REST_Response( [ 'success' => true, 'options' => $this->core->get_all_options() ], 200 );
+	}
+
+	function rest_reset_metadata() {
+		$this->core->reset_metadata();
+		return new WP_REST_Response( [ 'success' => true ], 200 );
 	}
 
 	function rest_update_option( $request ) {

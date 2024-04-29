@@ -31,10 +31,11 @@ class Meow_MFRH_UI
 
 		$on_upload = $this->core->get_option('on_upload_method', 'none');
 		$fields = array(
-			'Alt' => $this->core->get_option( 'on_upload_alt', false ),
-			'Title' => $this->core->get_option( 'on_upload_title', false ),
-			'Description' => $this->core->get_option( 'on_upload_description', false ),
-			'Caption' => $this->core->get_option( 'on_upload_caption', false ),
+			'Filename' => $this->core->get_option('sync_on_' . $on_upload . '_filename', false),
+			'Alt' => $this->core->get_option( 'sync_on_' . $on_upload . '_alt', false ),
+			'Title' => $this->core->get_option( 'sync_on_' . $on_upload . '_title', false ),
+			'Description' => $this->core->get_option( 'sync_on_' . $on_upload . '_description', false ),
+			'Caption' => $this->core->get_option( 'sync_on_' . $on_upload . '_caption', false ),
 		);
 		
 		$enabledFields = array_filter($fields, function($value) {

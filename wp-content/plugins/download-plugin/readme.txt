@@ -2,8 +2,8 @@
 Contributors: metagauss
 Tags: plugin, plugins, download-plugin, download-plugin-zip, plugin-zip, download, zip, wordpress, admin, download-plugin-from-wordpress-admin-panel, code, development, plugin-download
 Requires at least: 2.7
-Tested up to: 6.4
-Stable tag: 2.0.8
+Tested up to: 6.5
+Stable tag: 2.0.9
 License: GPLv3
 
 Download any plugin from your wordpress admin panel's Plugins page by just one click!
@@ -59,6 +59,11 @@ If you DIY type and made modifications to plugin files to suit your requirements
 1. Download link below each plugin name. Click on any of them and that plugin's zip will be downloaded to your computer.
 
 == Changelog ==
+
+= 2.0.9: April 09, 2024 =
+* Updated: Compatibility with WordPress 6.5
+* Added: Minor Design Improvement
+
 
 = 2.0.8: January 24, 2024 =
 * Fixed: UI and PHP 8.2 Compatibility Issues.

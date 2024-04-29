@@ -429,7 +429,7 @@ function pgc_sgb_register_post_type()
 		PGC_SGB_POST_TYPE,
 		array(
 			'labels'              => array(
-				'name'                  => _x('SimpLy Galleries', 'Post Type General Name', 'imply-gallery-block'),
+				'name'                  => _x('SimpLy Galleries', 'Post Type General Name', 'simply-gallery-block'),
 				'singular_name'         => _x('SimpLy Gallery', 'simply-gallery-block'),
 				'menu_name'             => __('SimpLy Gallery', 'simply-gallery-block'),
 				'all_items'         		=> __('Galleries', 'simply-gallery-block'),

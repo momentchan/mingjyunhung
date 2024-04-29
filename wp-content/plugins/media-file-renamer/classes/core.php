@@ -2,9 +2,15 @@
 
 define( 'MFRH_OPTIONS', [
 	'media_library_field' => 'none',
+
 	'auto_rename' => 'none',
-	'on_upload' => false,
+	'auto_rename_secondary' => 'none',
+	'auto_rename_tertiary' => 'none',
+
 	'on_upload_method' => 'none',
+	'on_upload_method_secondary' => 'none',
+	'on_upload_method_tertiary' => 'none',
+
 	'rename_slug' => false,
 	'convert_to_ascii' => false,
 	'update_posts' => true,
@@ -16,21 +22,18 @@ define( 'MFRH_OPTIONS', [
 	'manual_rename' => false,
 	'manual_rename_ai' => false,
 	'vision_rename_ai' => false,
-	'vision_rename_ai_on_upload' => false,
+	'vision_rename_ai_cache' => 60 * 5,
+	'exif_context' => false,
+
 	'manual_sanitize' => false,
 	'numbered_files' => false,
-	'sync_alt' => false,
-	'sync_media_title' => false,
-	'sync_description' => false,
-	'sync_caption' => false,
-	'disable_manual_sync' => false,
 	'force_rename' => false,
 	'log' => false,
 	'logsql' => false,
 	'rename_guid' => false,
 	'case_insensitive_check' => false,
 	'rename_on_save' => false,
-	'clean_upload' => false,
+
 	'acf_field_name' => false,
 	'images_only' => false,
 	'featured_only' => false,
@@ -52,10 +55,6 @@ define( 'MFRH_OPTIONS', [
 	'metadata_alt' => true,
 	'metadata_description' => false,
 	'metadata_caption' => false,
-	'on_upload_title' => false,
-	'on_upload_alt' => false,
-	'on_upload_description' => false,
-	'on_upload_caption' => false,
 ]);
 
 class Meow_MFRH_Core {
@@ -65,7 +64,13 @@ class Meow_MFRH_Core {
 	public $pro = false;
 	public $is_rest = false;
 	public $is_cli = false;
+
 	public $method = 'media_title';
+	public $method_secondary = 'none';
+	public $method_tertiary = 'none';
+
+	public $last_used_method = null;
+	
 	public $upload_folder = null;
 	public $site_url = null;
 	public $currently_uploading = false;
@@ -100,10 +105,15 @@ class Meow_MFRH_Core {
 		$this->site_url = get_site_url();
 		$this->upload_folder = wp_upload_dir();
 		$this->contentDir = substr( $this->upload_folder['baseurl'], 1 + strlen( $this->site_url ) );
-		add_action( 'plugins_loaded', array( $this, 'init' ) );
+
+		$this->allow_usage = apply_filters( 'mfrh_allow_usage', false );
+		$this->allow_setup = apply_filters( 'mfrh_allow_setup', false );
+
+		add_action( 'init', array( $this, 'init' ) );
 	}
 
 	function init() {
+		
 
 		// Before use get_option function, it has to set up Meow_MFRH_Admin.
 		// Part of the core, settings and stuff
@@ -131,6 +141,13 @@ class Meow_MFRH_Core {
 
 		// Initialize
 		$this->method = apply_filters( 'mfrh_method', $this->get_option( 'auto_rename', 'media_title' ) );
+		$this->method_secondary = apply_filters( 'mfrh_method', $this->get_option( 'auto_rename_secondary', 'none' ), '_secondary' );
+		$this->method_tertiary = apply_filters( 'mfrh_method', $this->get_option( 'auto_rename_tertiary', 'none' ), '_tertiary' );
+		
+
+		add_action( 'add_attachment', [ $this, 'on_upload_hook' ] );
+		add_filter( 'wp_handle_upload_prefilter', [ $this, 'on_upload_hook_prefilter' ] );
+		
 		add_filter( 'attachment_fields_to_save', array( $this, 'attachment_fields_to_save' ), 20, 2 );
 
 		// Only for REST
@@ -141,39 +158,18 @@ class Meow_MFRH_Core {
 		// Side-updates should be ran for CLI and REST
 		if ( is_admin() || $this->is_rest || $this->is_cli ) {
 			new Meow_MFRH_Updates( $this );
+			if ( $this->get_option( 'rename_on_save', false ) ) {
+				add_action( 'save_post', array( $this, 'save_post' ) );
+			}
 		}
 
 		// Admin screens
 		if ( is_admin() ) {
-			$clean_upload = $this->get_option( 'clean_upload', false );
-			$vision_upload = $this->get_option( 'vision_rename_ai_on_upload', false );
-			$on_upload = $this->get_option( 'on_upload', false );
-
-			$this->on_upload_fields = [
-				'sync_alt' => $this->get_option( 'on_upload_alt', false ),
-				'post_title' => $this->get_option( 'on_upload_title', false ),
-				'post_content' => $this->get_option( 'on_upload_description', false ),
-				'post_excerpt' => $this->get_option( 'on_upload_caption', false ),
-			];
-
 			new Meow_MFRH_UI( $this );
-			if ( $this->get_option( 'rename_on_save', false ) ) {
-				add_action( 'save_post', array( $this, 'save_post' ) );
-			}
-
-			if ( $clean_upload ) {
-				add_action( 'add_attachment', array( $this, 'clean_upload' ) );
-			}
-			else if ( $vision_upload ) {
-				add_action( 'add_attachment', array( $this, 'vision_rename_ai_on_upload' ) );
-			}
-
-			if ( $on_upload ) {
-				add_filter( 'wp_generate_attachment_metadata', array( $this, 'after_image_upload' ), 10, 3 );
-				add_filter( 'wp_handle_upload_prefilter', array( $this, 'wp_handle_upload_prefilter' ), 10, 2 );
-			}
 		}
 	}
+
+	
 
 	/**
 	 *
@@ -321,6 +317,367 @@ SQL;
 		RENAME ON UPLOAD
 	*****************************************************************************/
 
+	function set_sync_on_upload( $option ) {
+		$this->on_upload_fields = [
+			'sync_alt' => $this->get_option( 'sync_on_' . $option . '_alt', false ),
+			'post_title' => $this->get_option( 'sync_on_' . $option . '_title', false ),
+			'post_content' => $this->get_option( 'sync_on_' . $option . '_description', false ),
+			'post_excerpt' => $this->get_option( 'sync_on_' . $option . '_caption', false ),
+		];
+	}
+
+	function get_prefilter_option( $option ) {
+		return $this->get_option( 'sync_on_' . $option . '_filename', false );
+	}
+
+	function on_upload_hook_prefilter( $file ) {
+		$this->log( "⏰ Event: New Upload on Prefilter (" . $file['name'] . ")" );
+
+		// If it's not an image, we don't do anything
+		$filetype = $this->get_mime_type( $file['tmp_name'] );
+		if( strpos( $filetype, 'image' ) === false ){
+			$this->log( "⚠️ Not an image." );
+			return $file;
+    	}
+
+		$upload_methods = [
+			$this->get_option( 'on_upload_method', 'none' ),
+			$this->get_option( 'on_upload_method_secondary', 'none' ),
+			$this->get_option( 'on_upload_method_tertiary', 'none' ),
+		];
+
+		$done = false;
+		foreach ( $upload_methods as $method ) {
+			if ( $done ) { break; }
+
+			if ( !$this->get_prefilter_option( $method ) ) { continue; }
+			switch ( $method ) {
+				case 'upload_exif': // "auto" => EXIF Title
+					list( $done, $file ) = $this->exif_data_upload_prefilter( $file );
+					break;
+				case 'upload_clean':
+					list( $done, $file ) = $this->clean_upload_prefilter( $file );
+					break;
+				case 'upload_vision':
+					list( $done, $file ) = $this->vision_rename_ai_on_upload_prefilter( $file );
+					break;
+				default:
+					$done = false;
+					break;
+			}
+		}
+
+
+		return $file;
+	}
+
+	function on_upload_hook( $id ) {
+		if ( !wp_attachment_is_image( $id ) ) {
+			$this->log( "⚠️ Not an image." );
+			return;
+		}
+
+		$post = get_post( $id );
+		if(!$post) {
+			$this->log( "⚠️ Post not found." );
+			return;
+		}
+
+		$this->log( "⏰ New Upload (" . $post->post_title . ")" );
+		$done = false;
+		
+		$upload_methods = [
+			$this->get_option( 'on_upload_method', 'none' ),
+			$this->get_option( 'on_upload_method_secondary', 'none' ),
+			$this->get_option( 'on_upload_method_tertiary', 'none' ),
+		];
+
+		foreach ( $upload_methods as $method ) {
+			if ( $done ) { break; }
+			$this->set_sync_on_upload( $method );
+
+			switch ( $method ) {
+				case 'upload_exif': // "auto" => EXIF Title
+					$this->log( "🗒️ Trying EXIF Title... " );
+					$done = $this->exif_data_upload( $post );
+					
+					break;
+				case 'upload_clean':
+					$this->log( "🗒️ Trying Clean Upload... " );
+					$done = $this->clean_upload( $post );
+					
+					break;
+				case 'upload_vision':
+					$this->log( "🗒️ Trying Vision Rename AI... " );
+					$done = $this->vision_rename_ai_on_upload( $post );
+					
+					break;
+				default:
+					$done = false;
+					break;
+			}
+		}
+
+		$this->log( "👌 Done." );
+	}
+
+	function rename_media_on_post_upload( $post ) {
+		try {
+			$parent_post_id = $post->post_parent;
+			
+			if ( $parent_post_id ) {
+				$parent_post = get_post( $parent_post_id );
+
+				if ( is_null( $parent_post ) ) {
+					$this->log( "⚠️ Parent post not found." );
+					return false;
+				}
+				
+				if ( $parent_post && $parent_post->post_type === 'post' ) {
+					$new_title = $parent_post->post_title . ' - ' . $post->post_title;
+					$new_title = wp_unique_filename( dirname( get_attached_file( $post->ID ) ), $new_title );
+					
+					$my_image_meta = [
+						'ID' => $post->ID,
+						'post_title' => $new_title,
+					];
+					
+					$result = wp_update_post( $my_image_meta );
+					return $result != 0;
+				}
+			}
+			
+			return false;
+		} catch (Exception $e) {
+			$this->log( '⚠️ Rename Media on Post Upload failed: ' . $e->getMessage() );
+			return false;
+		}
+	}
+
+	/**
+	 * Get the EXIF data from an image. If a field is specified, only that field will be returned.
+	 * Otherwise, an associative array containing all the EXIF data will be returned.
+	 * @param string $path The path to the file
+	 * @param string $field The field to return
+	 * @return array An associative array containing the EXIF data, or a specific field if specified
+	 */
+	function get_exif_data( $path, $field = null ) {
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		$exif = wp_read_image_metadata( $path );
+		if ( empty( $exif ) ) { return null; }
+		if ( !empty( $field ) ) {
+			return isset( $exif[ $field ] ) ? $exif[ $field ] : null;
+		}
+		$allData = [];
+		if ( !empty( $exif['title'] ) ) {
+			$allData['title'] = $exif['title'];
+		}
+		if ( !empty( $exif['caption'] ) ) {
+			$allData['caption'] = $exif['caption'];
+		}
+		if ( !empty( $exif['keywords'] ) ) {
+			$allData['keywords'] = implode( ', ', $exif['keywords'] );
+		}
+		return $allData;
+	}
+
+	function exif_data_upload_prefilter ( $file ) {
+		try {
+			$title = $this->get_exif_data( $file['tmp_name'], 'title' );
+			if ( !empty( $title ) ) {
+				$filename = $this->engine->new_filename( $title, $file['name'] );
+				if ( !is_null( $filename ) ) {
+					$file['name'] = $filename;
+					$this->log( "👌 Title EXIF found." );
+					$this->log( "New file should be: " . $file['name'] );
+					return [ true, $file ];
+				}
+				return [ false, $file ];
+			}
+			else
+			{
+				$this->log( "😭 Title EXIF not found." );
+				return [ false, $file ];
+			}
+		}
+		catch ( Exception $e ) {
+			$this->log( '⚠️ EXIF Data failed: ' . $e->getMessage() );
+			return [ false, $file ];
+		}
+	}
+				
+	function exif_data_upload ( $post ) {
+		try {
+			$file = get_attached_file( $post->ID );
+			$title = $this->get_exif_data( $file, 'title' );
+			if ( !empty( $title ) ) {
+				$my_image_title = $title;
+				$my_image_title = preg_replace( '%\s*[-_\s]+\s*%', ' ', $my_image_title );
+				$my_image_title = ucwords( strtolower( $my_image_title ) );
+				$my_image_meta = array( 'ID' => $post->ID );
+				foreach ( $this->on_upload_fields as $field => $sync ) {
+					if ( $sync ){
+						if ( $field == 'sync_alt' ) {
+							$my_image_title = apply_filters( 'mfrh_exif_upload', $my_image_title );
+							update_post_meta( $post->ID, '_wp_attachment_image_alt', $my_image_title );
+						}
+						else {
+							$my_image_meta[$field] = $my_image_title;
+						}
+					}
+				}
+				$result = wp_update_post( $my_image_meta );
+				return $result != 0;
+			}
+			return false;
+		}
+		catch ( Exception $e ) {
+			$this->log( '⚠️ EXIF Data failed: ' . $e->getMessage() );
+			return false;
+		}
+	}
+
+	function clean_upload_prefilter( $file ) {
+		try {
+			
+			$image_title = preg_replace( '%\s*[-_\s]+\s*%', ' ', $file['name'] );
+			$image_title = ucwords( strtolower( $image_title ) );
+
+			$filename = $this->engine->new_filename( $image_title, $file['name'] );
+			if ( !is_null( $filename ) ) {
+				$file['name'] = $filename;
+				$this->log( "👌 Clean Upload found." );
+				$this->log( "New file should be: " . $file['name'] );
+				return [ true, $file ];
+			}
+
+			return [ false, $file ];
+
+		} catch (Exception $e) {
+			$this->log( '⚠️ Clean Upload failed: ' . $e->getMessage() );
+			return [ false, $file ];
+		}
+	
+	}
+
+	function clean_upload( $post ) {
+		try {
+			$my_image_title = preg_replace('%\s*[-_\s]+\s*%', ' ', $post->post_title);
+			$my_image_title = ucwords(strtolower($my_image_title));
+			
+			$my_image_meta = [
+				'ID' => $post->ID,
+			];
+
+			foreach ( $this->on_upload_fields as $field => $sync ) {
+				if ( $sync ){
+					if ( $field == 'sync_alt' ) {
+						$my_image_title = apply_filters( 'mfrh_clean_upload', $my_image_title );
+						update_post_meta($post->ID, '_wp_attachment_image_alt', $my_image_title);
+					}
+					else {
+						$my_image_meta[$field] = $my_image_title;
+					}
+				}
+			}
+
+			$result = wp_update_post($my_image_meta);
+			return $result != 0;
+			
+
+			return true;
+		} catch (Exception $e) {
+			$this->log( '⚠️ Clean Upload failed: ' . $e->getMessage() );
+			return false;
+		}
+	}
+
+	function vision_rename_ai_on_upload_prefilter( $file ) {
+		try {
+
+			if ( !has_filter( 'mfrh_vision_suggestion' ) ) {
+				if ( $this->pro ) {
+					add_filter( 'mfrh_vision_suggestion', array( $this->pro, 'vision_suggestion' ), 10, 4 );
+				} else {
+					$this->log( '⚠️ Vision AI is enabled but no filter is set.' );
+					return [ false, $file ];
+				}
+			}
+
+			$binary = file_get_contents( $file['tmp_name'] );
+			if ( !$binary ) {
+				$this->log( '⚠️ Vision AI: Could not read the file.' );
+				return [ false, $file ];
+			}
+
+			$filename = $this->ai_suggestion( null, 'filename', $file['tmp_name'] );
+			$filename = $this->engine->new_filename( $filename, $file['name'] );
+
+			if ( $filename ) {
+				$file['name'] = $filename;
+				$this->log( "👌 Vision AI found." );
+				$this->log( "New file should be: " . $file['name'] );
+				return [ true, $file ];
+			}
+
+			return [ false, $file ];
+
+		}catch (Exception $e) {
+			$this->log( '⚠️ Vision AI failed: ' . $e->getMessage() );
+			return [ false, $file ];
+		}
+	}
+
+	function vision_rename_ai_on_upload( $post ){
+		try {
+
+			if ( !has_filter( 'mfrh_vision_suggestion' ) ) {
+				if ( $this->pro ) {
+					add_filter( 'mfrh_vision_suggestion', array( $this->pro, 'vision_suggestion' ), 10, 4 );
+				} else {
+					$this->log( '⚠️ Vision AI is enabled but no filter is set.' );
+					return false;
+				}
+			}
+
+			$conversion = [
+				'sync_alt' => 'alternative text',
+				'post_title' => 'title',
+				'post_content' => 'description',
+				'post_excerpt' => 'caption',
+			];
+
+			$results = [];
+			$my_image_meta = [
+				'ID' => $post->ID,
+			];
+
+			foreach ( $this->on_upload_fields as $field => $sync ) {
+				if ( $sync ){
+					$metadataType = $conversion[$field];
+					$newMetadata = $this->ai_suggestion( $post->ID, $metadataType );
+
+					if ( $newMetadata ) {
+						if ( $field == 'sync_alt' ) {
+							$alt = apply_filters( 'mfrh_vision_upload', $newMetadata );
+							update_post_meta( $post->ID, '_wp_attachment_image_alt', $alt );
+						}
+						else {
+							$my_image_meta [ $field ] = $newMetadata;
+						}
+					}
+				}
+			}
+
+			$result = wp_update_post( $my_image_meta );
+			return $result != 0;
+
+		} catch (Exception $e) {
+			$this->log( '⚠️ Vision AI failed: ' . $e->getMessage() );
+			return false;
+		}
+	}
+
 	function after_image_upload( $metadata, $attachment_id, $context ) {
 		if ( $this->currently_uploading ) {
 			$metadata = apply_filters( 'mfrh_after_upload', $metadata, $attachment_id );
@@ -406,7 +763,7 @@ SQL;
 
 	// Return false if everything is fine, otherwise return true with an output
 	// which details the conditions and results about the renaming.
-	function check_attachment( $post, &$output = array(), $manual_filename = null, $force_rename = false ) {
+	function check_attachment( $post, &$output = array(), $manual_filename = null, $force_rename = false, $preview = true, $skipped_methods = [] ) {
 		$id = $post['ID'];
 		$old_filepath = get_attached_file( $id );
 
@@ -420,12 +777,14 @@ SQL;
 		if ( $this->images_only ) {
 			$is_image = in_array( $post['post_mime_type'], $this->images_mime_types );
 			if ( !$is_image ) {
+				$this->log( "😭 Not an image." );
 				return false;
 			}
 		}
 
 		// If the file doesn't exist, let's not go further.
 		if ( !$force_rename && ( !isset( $path_parts['dirname'] ) || !isset( $path_parts['basename'] ) ) ) {
+			$this->log( "😭 File doesn't exist." );
 			return false;
 		}
 
@@ -436,6 +795,7 @@ SQL;
 		// Check if media/file is dead
 		if ( !$force_rename && ( !$old_filepath || !file_exists( $old_filepath ) ) ) {
 			delete_post_meta( $id, '_require_file_renaming' );
+			$this->log( "😭 File doesn't exist." );
 			return false;
 		}
 
@@ -458,6 +818,7 @@ SQL;
 				? $this->engine->new_filename( $manual_filename, $old_filename, null, $post )
 				: $manual_filename;
 
+			$this->last_used_method = 'manual';
 			$output['manual'] = true;
 		}
 		else {
@@ -465,19 +826,36 @@ SQL;
 				delete_post_meta( $id, '_require_file_renaming' );
 				return false;
 			}
-			if ( get_post_meta( $id, '_manual_file_renaming', true ) ) {
+			$lock_enabled = $this->get_option( 'lock' );
+			if ( $lock_enabled && get_post_meta( $id, '_manual_file_renaming', true ) ) {
 				return false;
 			}
 
 			// Skip header images
 			if ( $this->is_header_image( $id ) ) {
 				delete_post_meta( $id, '_require_file_renaming' );
+				$this->log( "😭 Header Image." );
 				return false;
 			}
 
-			$base_for_rename = apply_filters( 'mfrh_base_for_rename', $post['post_title'], $id );
-			$new_filename = $this->engine->new_filename( $base_for_rename, $old_filename, null, $post );
+			// check if the filter exists
+			if ( !has_filter( 'mfrh_base_for_rename' ) && class_exists( 'MeowPro_MFRH_Core' ) ) {
+				$this->log( " ⚠️ The filter was not found. Initializing Meow Pro." );
+				$this->pro = new MeowPro_MFRH_Core( $this, $this->admin, $this->engine );
+				add_filter( 'mfrh_base_for_rename', [ $this->pro, 'base_for_rename' ], 10, 4);
+			}
+
+			$base_for_rename = $this->pro ? apply_filters( 'mfrh_base_for_rename', $post['post_title'], $id, $preview, $skipped_methods ) : $this->core_base_for_rename( $id, $skipped_methods );
+
+			if ( $base_for_rename !== '{VISION}') {
+				$new_filename = $this->engine->new_filename( $base_for_rename, $old_filename, null, $post );
+			} else {
+				// TODO: This should be probably handled by the UI, not here.
+				$new_filename = 'Auto with AI Vision...';
+			}
+
 			if ( is_null( $new_filename ) ) {
+				$this->log( "😭 No new filename." );
 				return false; // Leave it as it is
 			}
 		}
@@ -494,28 +872,29 @@ SQL;
 		// Filename is equal to sanitized title
 		if ( $new_filename == $old_filename ) {
 			delete_post_meta( $id, '_require_file_renaming' );
+			$this->log( "😭 Same filename." );
 			return false;
 		}
 
 		// Check for case issue, numbering
 		//if ( !$force_rename ) {
-			$ideal_filename = $new_filename;
-			$new_filepath = trailingslashit( $directory ) . $new_filename;
-			$existing_file = Meow_MFRH_Core::sensitive_file_exists( $new_filepath );
-			$case_issue = strtolower( $old_filename ) == strtolower( $new_filename );
-			if ( !$force_rename && $existing_file && !$case_issue ) {
-				$is_numbered = apply_filters( 'mfrh_numbered', false );
-				if ( $is_numbered ) {
-					$new_filename = $this->generate_unique_filename( $ideal, $directory, $new_filename );
-					if ( !$new_filename ) {
-						$this->log( "😭 Numbered: No new filename." );
-						delete_post_meta( $id, '_require_file_renaming' );
-						return false;
-					}
-					$new_filepath = trailingslashit( $directory ) . $new_filename;
-					$existing_file = Meow_MFRH_Core::sensitive_file_exists( $new_filepath );
+		$ideal_filename = $new_filename;
+		$new_filepath = trailingslashit( $directory ) . $new_filename;
+		$existing_file = Meow_MFRH_Core::sensitive_file_exists( $new_filepath );
+		$case_issue = strtolower( $old_filename ) == strtolower( $new_filename );
+		if ( !$force_rename && $existing_file && !$case_issue ) {
+			$is_numbered = apply_filters( 'mfrh_numbered', false );
+			if ( $is_numbered ) {
+				$new_filename = $this->generate_unique_filename( $ideal, $directory, $new_filename );
+				if ( !$new_filename ) {
+					$this->log( "😭 Numbered: No new filename." );
+					delete_post_meta( $id, '_require_file_renaming' );
+					return false;
 				}
+				$new_filepath = trailingslashit( $directory ) . $new_filename;
+				$existing_file = Meow_MFRH_Core::sensitive_file_exists( $new_filepath );
 			}
+		}
 		//}
 
 		// Send info to the requester function
@@ -533,6 +912,8 @@ SQL;
 		$output['locked'] = get_post_meta( $id, '_manual_file_renaming', true );
 		$output['proposed_filename_exists'] = !!$existing_file;
 		$output['original_image'] = null;
+		$output['used_method'] = $this->last_used_method;
+		$output['skipped_methods'] = empty( $skipped_methods ) ? null : $skipped_methods;
 		
 		// If the ideal filename already exists
 		// Maybe that's the original_image! If yes, we should let it go through
@@ -545,6 +926,18 @@ SQL;
 			}
 		}
 
+		// -- 
+		if ( $output['proposed_filename_exists'] && empty( $manual_filename ) ) {
+			$skipped_methods = array_merge( $skipped_methods, [ $this->last_used_method ] );
+
+			if ( count( $skipped_methods ) < 3 ) {
+				return $this->check_attachment( $post, $output, $manual_filename, $force_rename, $preview, $skipped_methods );
+			} else {
+				$this->log( "😭 More than 3 skipped methods, no new filename." );
+			}
+
+		}
+
 		// Set the '_require_file_renaming', even though it's not really used at this point (but will be,
 		// with the new UI).
 		if ( !get_post_meta( $post['ID'], '_require_file_renaming', true ) && !$output['locked']) {
@@ -552,6 +945,48 @@ SQL;
 		}
 
 		return true;
+	}
+
+	function core_base_for_rename( $id , $skipped_methods = [] )
+	{
+		$methods = [
+			$this->method,
+			$this->method_secondary,
+			$this->method_tertiary,
+		];
+
+		foreach ( $methods as $method ) {
+
+			if ( in_array( $method, $skipped_methods ) ) {
+				$this->log( "✒️ Method " . $method . " was skipped." );
+				continue;
+			}
+
+			switch ( $method ) {
+				case 'none':
+					$base_for_rename = null;
+					break;
+				case 'media_title':
+					$base_for_rename = get_the_title( $id );
+					break;
+				case 'alt_text':
+					$image_alt = get_post_meta( $id, '_wp_attachment_image_alt', true );
+					$base_for_rename = $image_alt;
+					break;
+				default:
+					$this->log( "⚠️ Method " . $method . " not found." );
+					break;
+			}
+
+			if ( !is_null($base_for_rename) ) {
+				$this->last_used_method = $method;
+				break;
+			} else {
+				$this->log( "✒️ Method " . $method . " returned null. Trying next method." );
+			}
+		}
+
+		return html_entity_decode( $base_for_rename );
 	}
 
 	function check_text() {
@@ -580,118 +1015,20 @@ SQL;
 		$status = get_post_status( $post_id );
 		if ( !in_array( $status, array( 'publish', 'draft', 'future', 'private' ) ) )
 			return;
+
 		$args = array( 'post_type' => 'attachment', 'numberposts' => -1, 'post_status' =>'any', 'post_parent' => $post_id );
 		$medias = get_posts( $args );
+
 		if ( $medias ) {
 			$this->log( '⏰ Event: Save Post' );
 			foreach ( $medias as $attach ) {
-				// In the past, I used this to detect if the Media Library is NOT used:
-				// isset( $attachment['image-size'] );
-				$this->engine->rename( $attach->ID );
+				$this->engine->rename( $attach->ID, null, false, 'updated' );
 			}
 		}
 	}
 
-	/**
-	 * Originally from FRANCISCO RUIZ 
-	 * (source: brutalbusiness.com)
-	 * Modified by Valentin
-	 */
-	function clean_upload( $post_ID ) {
-		if ( !wp_attachment_is_image( $post_ID ) ) {
-			return;
-		}
 
-		$post = get_post( $post_ID );
-		if(!$post) {
-			return;
-		}
 
-		$my_image_title = preg_replace('%\s*[-_\s]+\s*%', ' ', $post->post_title);
-		$my_image_title = ucwords(strtolower($my_image_title));
-		
-		$my_image_meta = [
-			'ID' => $post_ID,
-		];
-
-		foreach ( $this->on_upload_fields as $field => $sync ) {
-			if ( $sync ){
-				if ( $field == 'sync_alt' ) {
-					$my_image_title = apply_filters( 'mfrh_clean_upload', $my_image_title );
-					update_post_meta($post_ID, '_wp_attachment_image_alt', $my_image_title);
-				}
-				else {
-					$my_image_meta[$field] = $my_image_title;
-				}
-			}
-		}
-
-		wp_update_post($my_image_meta);
-	}
-
-	function vision_rename_ai_on_upload( $post_ID ){
-		if ( !wp_attachment_is_image( $post_ID ) ) {
-			return;
-		}
-
-		if ( !has_filter( 'mfrh_vision_suggestion' ) ) {
-			if ( $this->pro ) {
-				add_filter( 'mfrh_vision_suggestion', array( $this->pro, 'vision_suggestion' ), 10, 3 );
-			} else {
-				$this->log( '⚠️ Vision AI is enabled but no filter is set.' );
-				return;
-			}
-		}
-
-		$post = get_post( $post_ID );
-		if(!$post) {
-			return;
-		}
-
-		$lengths = [
-			'sync_alt' => '16 words',
-			'post_title' => '60 characters',
-			'post_content' => '155 characters',
-			'post_excerpt' => '155 characters',
-		];
-
-		$conversion = [
-			'sync_alt' => 'alternative text',
-			'post_title' => 'title',
-			'post_content' => 'description',
-			'post_excerpt' => 'caption',
-		];
-
-		$results = [];
-		$my_image_meta = [
-			'ID' => $post_ID,
-		];
-
-		foreach ( $this->on_upload_fields as $field => $sync ) {
-			if ( $sync ){
-				$metadataType = $conversion[$field];
-				$length = $lengths[$field];
-				$prompt = "Suggest a lowercase $metadataType under $length characters, SEO-optimized, easy to read, fitting for WordPress. Limit response to $metadataType.";
-				$newMetadata = apply_filters( 'mfrh_vision_suggestion', null, $post_ID, $prompt );
-
-				$newMetadata = trim( $newMetadata );
-				$newMetadata = str_replace( '"', '', $newMetadata );
-				$newMetadata = str_replace( "'", '', $newMetadata );
-				$newMetadata = str_replace( "-", " ", $newMetadata );
-
-				if ( $newMetadata ) {
-					if ( $field == 'sync_alt' ) {
-						$alt = apply_filters( 'mfrh_vision_upload', $newMetadata );
-						update_post_meta( $post_ID, '_wp_attachment_image_alt', $alt );
-					} else {
-						$my_image_meta [ $field ] = $newMetadata;
-					}
-				}
-			}
-		}
-
-		wp_update_post($my_image_meta);
-	}
 
 	/**
 	 *
@@ -993,68 +1330,142 @@ SQL;
 		return true;
 	}
 
-	function ai_suggestion( $mediaId, $metadataType ) {
-
-		$entry = $this->get_media_status_one( $mediaId );
-
-		$title = $entry->post_title;
-		$alt = $entry->image_alt;
-		$description = $entry->image_description;
-		$caption = $entry->image_caption;
-		$filename = $entry->current_filename;
-
+	function get_human_readable_language() {
 		$locale = get_locale();
+		if ( class_exists( 'Locale' ) ) {
+			return Locale::getDisplayName( $locale, $locale );
+		}
+		// Sorry if your language is not listed here. It's not because I do not love you!
+		$languages = array(
+			'en_US' => 'English (United States)',
+			'fr_FR' => 'Français (France)',
+			'de_DE' => 'Deutsch (Deutschland)',
+			'es_ES' => 'Español (España)',
+			'it_IT' => 'Italiano (Italia)',
+			'pt_PT' => 'Português (Portugal)',
+			'pt_BR' => 'Português (Brasil)',
+			'ja_JP' => '日本語 (日本)',
+			'zh_CN' => '中文 (中国)',
+			'zh_TW' => '中文 (台灣)',
+			'ko_KR' => '한국어 (대한민국)',
+			'ru_RU' => 'Русский (Россия)',
+			'vi_VN' => 'Tiếng Việt (Việt Nam)',
+			'tr_TR' => 'Türkçe (Türkiye)'
+		);
+		return isset( $languages[$locale] ) ? $languages[$locale] : 'English (United States)';
+	}
 
-		$newMetadata = "";
-		$metadataType = $metadataType === 'alt' ? 'alternative text' : $metadataType;
+	/**
+	 * Generates a new suggestion for media metadata based on type.
+	 * 
+	 * @param int    $mediaId      ID of the media.
+	 * @param string $metadataType Type of metadata (title, description, alt text, caption, filename).
+	 * @return string New metadata suggestion.
+	 */
+	function ai_suggestion( $mediaId, $metadataType, $binary_path = null ) {
+		$is_binary = !is_null( $binary_path );
 
-		$prompt = "Suggest a new ";
-		if ($metadataType === 'filename') {
-			$prompt .= "ASCII-friendly, respecting file name standards and conventions, $metadataType in $locale.\n\nAdditional information:\n";
-		} else {
-			$prompt .= "human-readable with spaces and punctuation, $metadataType in $locale.\n\nAdditional information:\n";
+		// Prepare metadata from the entry.
+		$metadata = [];
+		$entry = null;
+
+		if ( !$is_binary ) {
+			$entry = $this->get_media_status_one( $mediaId );
+			$metadata = [
+				'title'       => $entry->post_title,
+				'alt'         => $entry->image_alt,
+				'description' => $entry->image_description,
+				'caption'     => $entry->image_caption,
+				'filename'    => $entry->current_filename,
+			];
 		}
 
-		if ( !empty( $title ) ) {
-			$prompt .= "Current Title: $title.\n";
-		}
-		if ( !empty( $alt ) ) {
-			$prompt .= "Current ALT Text: $alt.\n";
-		}
-		if ( !empty( $description ) ) {
-			$prompt .= "Current Description: $description.\n";
-		}
-		if ( !empty( $caption ) ) {
-			$prompt .= "Current Caption: $caption.\n";
-		}
-		if ( !empty( $filename ) ) {
-			$prompt .= "Current Filename: $filename.\n";
+		// Adjust metadata type for the prompt.
+		$locale = get_locale();
+		$readableType = $metadataType === 'alt' ? 'alternative text' : $metadataType;
+		$promptType = $metadataType === 'filename' ? 
+			"$readableType. Should be ASCII-friendly, lowercase, respecting filename standards, words separated by hyphens, but do not use the language (or locale) in the filename" :
+			"$readableType. Should be human-readable with spaces and punctuation";
+
+		// Start constructing the prompt.
+		$prompt = "Suggest a new $promptType in " . $this->get_human_readable_language() . ".";
+
+		if ( !$is_binary ) {
+			$prompt .= "\n\nAdditional information to craft this $readableType:\n";
+			foreach ( $metadata as $type => $value ) {
+				if ( !empty ( $value ) ) {
+					$prompt .= "* Current " . ucfirst ( $type ) . ": $value.\n";
+				}
+			}
+			$prompt .= "The values above might also be modified soon, so it's only for reference.\n\n";
 		}
 
+		// Define max lengths for each metadata type.
 		$lengths = [
 			'alternative text' => '16 words',
-			'title' => '60 characters',
-			'description' => '155 characters',
-			'filename' => '60 characters',
+			'title' => '64 characters',
+			'description' => '256 characters',
+			'filename' => '64 characters',
 			'caption' => '155 characters',
 		];
 
-		$length = $lengths[$metadataType];
-		
-		$prompt .= "\nThis new $metadataType must be shorter than $length, SEO-optimized, humanly-readable. Only return the $metadataType.";
-
-		$newMetadata = apply_filters( 'mfrh_vision_suggestion', null, $mediaId, $prompt );
-		if ( empty( $newMetadata ) ) {
-			global $mwai;
-			$newMetadata = $mwai->simpleTextQuery( $prompt, [ "max_tokens" => 256 ] );
+		// Append specifications for the new metadata.
+		$length = $lengths[$readableType];
+		$prompt .= "This new $readableType must be shorter than $length, SEO-optimized, humanly-readable. Only return the $readableType.";
+		// If it's a description, mention that it should describe the image, of what's happening on it in one paragraph.
+		if ( $metadataType === 'description' ) {
+			$prompt .= " It should be an actual description the image, what's happening on it, in one paragraph. It is not adressing the user, but describing the image.";
+		}
+		else if ( $metadataType === 'caption' ) {
+			$prompt .= " It should be a very short description of the image, what's happening on it, in one sentence which typically starts with a uppercase letter and ends with a period.";
+		}
+		else if ( $metadataType === 'alternative text' ) {
+			$prompt .= " The ALT is used mainly for SEO. It should be stuffed with keywords, but also describe the image. It should be a short sentence, typically starting with a uppercase letter and ending with a period.";
+		}
+		else if ( $metadataType === 'filename' ) {
+			$prompt .= " Based on the rules we set before, actually generate 5 different filenames. They should be all quite different, from the less creative to the most creative. Separate them by a comma (,) and do not end with a period. Do not forget the extension which is used in Current Filename.";
 		}
 
+		// Give the user a chance to modify the prompt.
+		$prompt = apply_filters( 'mfrh_ai_prompt', $prompt, $metadataType, $entry );
+
+		// Get new metadata, first trying a filter, then defaulting to an AI query.
+		$newMetadata = apply_filters( 'mfrh_vision_suggestion', null, $mediaId, $binary_path, $prompt );
+		if ( empty ( $newMetadata ) ) {
+			global $mwai;
+			$newMetadata = $mwai->simpleTextQuery( $prompt, [ 'max_tokens' => 512, 'scope' => 'renamer' ] );
+		}
+
+		// Clean up the new metadata.
 		$newMetadata = trim( $newMetadata );
-		$newMetadata = str_replace( '"', '', $newMetadata );
-		$newMetadata = str_replace( "'", '', $newMetadata );
+		$newMetadata = str_replace( ['"', "'"], '', $newMetadata );
+
+		// If it's a filename, additional cleaning and checks are needed.
+		if ( $metadataType === 'filename' ) {
+			$newMetadata = strtolower( $newMetadata );
+			if ( substr( $newMetadata, -1 ) === '.' ) {
+				$newMetadata = substr( $newMetadata, 0, -1 );
+			}
+			if ( strpos( $newMetadata, ',' ) !== false ) {
+				$newMetadata = explode( ',', $newMetadata );
+				$newMetadata = array_map( 'trim', $newMetadata );
+			}
+
+			// Let's get the file which doesn't exist yet.
+			$path = get_attached_file( $mediaId );
+			$directory_path = dirname( $path );
+			foreach ( $newMetadata as $filename ) {
+				$newMetadata = $filename;
+				$newPath = $directory_path . '/' . $filename;
+				if ( !file_exists( $newPath ) ) {
+					break;
+				}
+			}
+		}
 
 		return $newMetadata;
 	}
+
 
 	/**
 	 * Get the status for many Media IDs.
@@ -1147,7 +1558,8 @@ SQL;
 		$entry->locked = $entry->locked === '1';
 		$entry->pending = $entry->pending === '1';
 		$entry->proposed_filename = null;
-		if ( !$entry->locked ) {
+		$lock_enabled = $this->get_option( 'lock' );
+		if ( !$lock_enabled || !$entry->locked ) {
 			$output = [];
 			// TODO: We should optimize this check_attachment function one day.
 			$this->check_attachment( get_post( $entry->ID, ARRAY_A ), $output );
@@ -1157,6 +1569,14 @@ SQL;
 			if ( isset( $output['proposed_filename'] ) ) {
 				$entry->proposed_filename = $output['proposed_filename'];
 				$entry->proposed_filename_exists = $output['proposed_filename_exists'];
+			}
+
+			if( isset( $output['used_method'] ) ) {
+				$entry->used_method = $output['used_method'];
+			}
+
+			if( isset( $output['skipped_methods'] ) ) {
+				$entry->skipped_methods = $output['skipped_methods'];
 			}
 			//error_log( print_r( $output, 1 ) );
 		}
@@ -1386,6 +1806,13 @@ SQL;
 		delete_option( $this->option_name );
 	}
 
+	function reset_metadata() {
+		global $wpdb;
+		// Delete the specific meta keys to reset the status
+		$count = $wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key IN ('_require_file_renaming', '_manual_file_renaming', '_original_filename')" );
+		return $count;
+	}
+
 	function get_option( $option, $default = null ) {
 		$options = $this->get_all_options();
 		return $options[$option] ?? $default;
@@ -1459,17 +1886,49 @@ SQL;
 		return $options;
 	}
 
+	function get_mime_type( $file ) {
+        $mimeType = null;
+
+        // Let's try to use mime_content_type if the function exists
+        if ( function_exists( 'mime_content_type' ) ) {
+            $mimeType = mime_content_type( $file );
+        }
+
+        // Otherwise, let's check the file extension (which can actually also be an URL)
+        if ( !$mimeType ) {
+            $extension = pathinfo( $file, PATHINFO_EXTENSION );
+            $extension = strtolower( $extension );
+            $mimeTypes = [
+                'jpg' => 'image/jpeg',
+                'jpeg' => 'image/jpeg',
+                'png' => 'image/png',
+                'gif' => 'image/gif',
+                'webp' => 'image/webp',
+                'bmp' => 'image/bmp',
+                'tiff' => 'image/tiff',
+                'tif' => 'image/tiff',
+                'svg' => 'image/svg+xml',
+                'ico' => 'image/x-icon',
+                'pdf' => 'application/pdf',
+            ];
+            $mimeType = isset( $mimeTypes[$extension] ) ? $mimeTypes[$extension] : null;
+        }
+
+        return $mimeType;
+    }
+
 	// Validate and keep the options clean and logical.
 	function sanitize_options() {
 		$options = $this->get_all_options();
 		$result = true;
 		$message = null;
 
+		$needs_update = false;
+
+		
+
 		$force_rename = $options['force_rename'];
 		$numbered_files = $options['numbered_files'];
-
-		$on_upload = $options['on_upload_method'];
-		$upload_methods = [ 'on_upload', 'vision_rename_ai_on_upload', 'clean_upload' ];
 
 		if ( $force_rename && $numbered_files ) {
 			$options['force_rename'] = false;
@@ -1477,21 +1936,44 @@ SQL;
 			$message = __( 'Force Rename and Numbered Files cannot be used at the same time. Please use Force Rename only when you are trying to repair a broken install. For now, Force Rename has been disabled.', 'media-file-renamer' );
 		}
 
-		$needs_update = false;
+		$lock = $options['lock'];
+		$has_lock_options = $options['autolock_auto'] || $options['autolock_manual'];
+		if ( !$lock && $has_lock_options ) {
+			$options['autolock_auto'] = false;
+			$options['autolock_manual'] = false;
+			$needs_update = true;
+		}
+		
 		if ( !$options['move'] && $options['mode'] === 'move' ) {
 			$options['mode'] = 'rename';
 			$needs_update = true;
 		}
 
-		foreach ( $upload_methods as $method ) {
-			if ( array_key_exists( $method, $options ) ) {
-				$oldValue = $options[$method];
-				$newValue = ( $on_upload === $method );
-				$needs_update = $needs_update || ( $oldValue !== $newValue );
-				
-				$options[$method] = $newValue;
+		$isVisionEnabled = $options['vision_rename_ai'] && $options['manual_rename_ai'];
+		if ( !$isVisionEnabled ) {
+
+			$visionRename = $options['auto_rename'] === 'vision' || $options['auto_rename_secondary'] === 'vision' || $options['auto_rename_tertiary'] === 'vision';
+
+			if ( $visionRename ) {
+				$options['auto_rename']           = $options['auto_rename']           === 'vision' ? 'none' : $options['auto_rename'];
+				$options['auto_rename_secondary'] = $options['auto_rename_secondary'] === 'vision' ? 'none' : $options['auto_rename_secondary'];
+				$options['auto_rename_tertiary']  = $options['auto_rename_tertiary']  === 'vision' ? 'none' : $options['auto_rename_tertiary'];
+			
+				$needs_update = true;
 			}
+
+			$visionUpload = $options['on_upload_method'] === 'upload_vision' || $options['on_upload_method_secondary'] === 'upload_vision' || $options['on_upload_method_tertiary'] === 'upload_vision';
+
+			if ( $visionUpload ) {
+				$options['on_upload_method']           = $options['on_upload_method']           === 'upload_vision' ? 'none' : $options['on_upload_method'];
+				$options['on_upload_method_secondary'] = $options['on_upload_method_secondary'] === 'upload_vision' ? 'none' : $options['on_upload_method_secondary'];
+				$options['on_upload_method_tertiary']  = $options['on_upload_method_tertiary']  === 'upload_vision' ? 'none' : $options['on_upload_method_tertiary'];
+			
+				$needs_update = true;
+			}
+			
 		}
+
 
 		if ( !$result || $needs_update ) {
 			update_option( $this->option_name, $options, false );

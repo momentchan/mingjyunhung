@@ -4,7 +4,7 @@
  * @package WP Encryption
  *
  * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2023, Go Web Smarty
+ * @copyright  Copyright (C) 2019-2024, Go Web Smarty
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
  * @link       https://gowebsmarty.com
  * @since      Class available since Release 4.3.0
@@ -24,10 +24,8 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-class WPLE_Activator
-{
-    public static function activate( $networkwide )
-    {
+class WPLE_Activator {
+    public static function activate( $networkwide ) {
         $opts = ( get_option( 'wple_opts' ) === FALSE ? array(
             'expiry' => '',
         ) : get_option( 'wple_opts' ) );
@@ -41,7 +39,7 @@ class WPLE_Activator
         delete_option( 'wple_error' );
         delete_option( 'wple_sectigo' );
         delete_option( 'wple_ssl_screen' );
-        wp_redirect( admin_url( '/admin.php?page=wp_encryption' ), 302 );
+        // wp_redirect(admin_url('/admin.php?page=wp_encryption'), 302); //causes ajax activation error msg
     }
 
 }

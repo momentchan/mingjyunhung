@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Media File Renamer: Rename Files (Manual, Auto, AI)
+Plugin Name: Media File Renamer: Rename for better SEO (AI-Powered)
 Plugin URI: https://meowapps.com
-Description: Rename and move files directly from the dashboard, either individually or in bulk. You can even set it to automatically rename your files for you! Nicer SEO, tidier WordPress, better life.
-Version: 5.8.3
+Description: Rename filenames and media metadata for SEO and tidyness. Using AI, manually, in bulk, or in so many other ways!
+Version: 5.9.1
 Author: Jordy Meow
 Author URI: https://meowapps.com
 Text Domain: media-file-renamer
@@ -15,7 +15,7 @@ Originally developed for two of my websites:
 */
 
 if ( !defined( 'MFRH_VERSION' ) ) {
-  define( 'MFRH_VERSION', '5.8.3' );
+  define( 'MFRH_VERSION', '5.9.1' );
   define( 'MFRH_PREFIX', 'mfrh' );
   define( 'MFRH_DOMAIN', 'media-file-renamer' );
   define( 'MFRH_ENTRY', __FILE__ );

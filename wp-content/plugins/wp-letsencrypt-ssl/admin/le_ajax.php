@@ -67,9 +67,8 @@ class WPLE_Ajax
 
           $fpath = trailingslashit(ABSPATH) . '.well-known/acme-challenge/';
 
-          if (stripos(site_url(), '/', 10) !== false) { //its from sub-dir site
-            $rpos = strrpos(trailingslashit(ABSPATH), '/', -2);
-            $fpath = trailingslashit(substr(ABSPATH, 0, $rpos)) . '.well-known/acme-challenge/';
+          if (stripos(site_url(), '/', 10) !== false) { //its from sub-dir site            
+            $fpath = trailingslashit(dirname(ABSPATH, 1)) . '.well-known/acme-challenge/';
           }
 
           if ($counter >= 5) {
@@ -100,16 +99,19 @@ class WPLE_Ajax
             if (!file_exists($fpath)) {
               mkdir($fpath, 0775, true);
             }
-            WPLE_Trait::wple_logger('Local file exists - Trying to help with HTTP challenge file', 'success', 'a');
+            if (!file_exists($fpath . $chfile)) {
+              file_put_contents($fpath . $chfile, trim($chval));
+            }
 
-            file_put_contents($fpath . $chfile, trim($chval));
+            WPLE_Trait::wple_logger('Local acme-challenge file exists - Proceeding to verification', 'success', 'a');
 
             //re-check once
-            $check = LEFunctions::checkHTTPChallenge($domain, $chfile, $chval, false);
-            if (!$check) {
-              echo 'not_possible';
-              exit();
-            }
+            // $check = LEFunctions::checkHTTPChallenge($domain, $chfile, $chval, false);
+            // if (!$check) {
+            //   echo 'not_possible';
+            //   exit();
+            // }
+            $check = true;
           }
 
           // if ($check === true) {
@@ -294,14 +296,14 @@ class WPLE_Ajax
 
     $ftype = $_GET['gettype'];
     $output = '';
-    $keypath = ABSPATH . 'keys/';
+    $keypath = WPLE_Trait::wple_cert_directory();
 
     switch ($ftype) {
       case 'cert':
         if (file_exists($keypath . 'certificate.crt')) $output = file_get_contents($keypath . 'certificate.crt');
         break;
       case 'key':
-        if (file_exists($keypath . 'private.pem')) $output = file_get_contents($keypath . 'private.pem');
+        $output = WPLE_Trait::wple_get_private_key();
         break;
       case 'cabundle':
         // if (file_exists(ABSPATH . 'keys/cabundle.crt')) {

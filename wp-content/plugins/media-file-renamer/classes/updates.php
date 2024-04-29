@@ -73,13 +73,15 @@ class Meow_MFRH_Updates {
 		// Execute updates
 		$query = $wpdb->prepare( "UPDATE $wpdb->postmeta 
 			SET meta_value = %s
-			WHERE ID IN (" . $ids_to_update . ")", $new_image_url );
+			WHERE meta_key = '_wp_attached_file'
+			AND post_id IN (" . $ids_to_update . ")", $new_image_url );
 		$wpdb->query( $query );
 
 		// Reverse updates & log
 		$query_revert = $wpdb->prepare( "UPDATE $wpdb->postmeta 
 			SET meta_value = '%s'
-			WHERE ID IN (" . $ids_to_update . ")", $orig_image_url );
+			WHERE meta_key = '_wp_attached_file'
+			AND post_id IN (" . $ids_to_update . ")", $orig_image_url );
 		$this->core->log_sql( $query, $query_revert );
 
 		$this->core->log( "🚀 Rewrite meta $orig_image_url ➡️ $new_image_url" );
