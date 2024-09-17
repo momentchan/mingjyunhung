@@ -12,7 +12,7 @@
 	<atom:link href="https://momentchan.github.io/mingjyunhung/projects/feed/" rel="self" type="application/rss+xml" />
 	<link>https://momentchan.github.io/mingjyunhung</link>
 	<description>Creative Technologist based in Tokyo</description>
-	<lastBuildDate>Thu, 25 Apr 2024 17:03:50 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 17 Sep 2024 00:57:25 +0000</lastBuildDate>
 	<language>en-GB</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -28,6 +28,39 @@
 	<height>32</height>
 </image> 
 	<item>
+		<title>Drift</title>
+		<link>https://momentchan.github.io/mingjyunhung/projects/drift/</link>
+		
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<pubDate>Tue, 17 Sep 2024 00:56:48 +0000</pubDate>
+				<category><![CDATA[Web]]></category>
+		<guid isPermaLink="false">https://momentchan.github.io/mingjyunhung/?post_type=project#038;p=856</guid>
+
+					<description><![CDATA[﻿ &#160; &#8220;A once idealistic and highly accomplished astronaut, after a mission failure, becomes lost in the vastness of space, unable to return to Earth. He falls into loneliness and regret, recording his daily struggles, breakthroughs, losses, and thoughts of his family and friends in his diary.&#8221; &#160; Using the React framework, I utilized GPGPU [&#8230;]]]></description>
+										<content:encoded><![CDATA[<div style="padding: 56.25% 0 0 0; position: relative;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://player.vimeo.com/video/1010061924?h=d358a7a61e&amp;title=0&amp;byline=0&amp;portrait=0" frameborder="0" allowfullscreen="allowfullscreen"><span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start">﻿</span></iframe></div>
+<p>&nbsp;</p>
+<p>&#8220;A once idealistic and highly accomplished astronaut, after a mission failure, becomes lost in the vastness of space, unable to return to Earth.<br />
+He falls into loneliness and regret, recording his daily struggles, breakthroughs, losses, and thoughts of his family and friends in his diary.&#8221;</p>
+<p>&nbsp;</p>
+<p>Using the React framework, I utilized GPGPU to create particle effects and combined AI to generate new text and audio daily, reflecting the character&#8217;s mental state each day.<br />
+GPGPU allows for more detailed and diverse visual representations. While game engines have improved their support for WebGL, I still prefer using web languages for handling visuals and interactions,<br />
+as it integrates more directly with web pages on both computers and mobile devices.</p>
+<p>&nbsp;</p>
+<p>I’ve also been thinking about how to incorporate AI into my field. By designing prompts, I can preserve the original concept of the project while keeping the randomness and non-repeatability of AI,<br />
+making the entire experience more interesting. I tried several APIs and found that OpenAI’s voice sounded the most natural, without that robotic stiffness. </p>
+<p>&nbsp;</p>
+<p>I’ve always had a strange admiration for astronauts, thinking they’re super cool, but at the same time,<br />
+I feel an irrational fear of space, a seemingly free yet oppressive environment<br />
+(possibly a leftover fear from watching &#8220;Event Horizon&#8221; as a kid).<br />
+This time, I tried to convey that feeling. Feel free to give it a try!</p>
+<p>&nbsp;</p>
+<p><strong><a href="https://momentchan.github.io/drift/">Live Demo</a></strong></p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
 		<title>Rebirth</title>
 		<link>https://momentchan.github.io/mingjyunhung/projects/run-audio-visual-live-show/</link>
 		
@@ -198,7 +231,7 @@ The performance concludes with a surprise transition of the virtual protagonist 
 		<guid isPermaLink="false">https://mingjyunhung.com/?post_type=project&#038;p=504</guid>
 
 					<description><![CDATA[&#160; The Catching and Collecting in the Sacred Forest is a new learning space based on the concept of Catch, Study, Release, in which people explore the world with their bodies, discovering, catching, and broadening their interests based on what they catch. Explore with your smartphone, capture various animals, study them, and create your very [&#8230;]]]></description>
-										<content:encoded><![CDATA[<div><div class="epyt-video-wrapper"><iframe  id="_ytid_80580"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/DvPWhxMpYWc?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div></div>
+										<content:encoded><![CDATA[<div><div class="epyt-video-wrapper"><iframe  id="_ytid_50837"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/DvPWhxMpYWc?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div></div>
 <p>&nbsp;</p>
 <p>The Catching and Collecting in the Sacred Forest is a new learning space based on the concept of Catch, Study, Release, in which people explore the world with their bodies, discovering, catching, and broadening their interests based on what they catch.</p>
 <p>Explore with your smartphone, capture various animals, study them, and create your very own collection book.</p>
@@ -233,8 +266,8 @@ The performance concludes with a surprise transition of the virtual protagonist 
 		<guid isPermaLink="false">https://mingjyunhung.com/?post_type=project&#038;p=513</guid>
 
 					<description><![CDATA[&#160; LUXE is a real-time interactive projection mapping ice skating show held in the Yokohama arena in May of 2021. We cooperated with people from different teams and companies such as skaters, dancers, directors, lighting, sounds, sensors, and projections. The interaction we created based on real-time tracking of skaters&#8217; positions. &#160; Luxe Official Site Project [&#8230;]]]></description>
-										<content:encoded><![CDATA[<p><div class="epyt-video-wrapper"><iframe  id="_ytid_40418"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/XhkSIILyqU4?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div><br />
-<div class="epyt-video-wrapper"><iframe  id="_ytid_52368"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/GReSKQG6nW8?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div></p>
+										<content:encoded><![CDATA[<p><div class="epyt-video-wrapper"><iframe  id="_ytid_31529"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/XhkSIILyqU4?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div><br />
+<div class="epyt-video-wrapper"><iframe  id="_ytid_12003"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/GReSKQG6nW8?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div></p>
 <p>&nbsp;</p>
 <p>LUXE is a real-time interactive projection mapping ice skating show held in the Yokohama arena in May of 2021.</p>
 <p>We cooperated with people from different teams and companies such as skaters, dancers, directors, lighting, sounds, sensors, and projections.</p>
@@ -242,33 +275,6 @@ The performance concludes with a surprise transition of the virtual protagonist 
 <p>&nbsp;</p>
 <p><strong><a href="https://luxe.hyoen.jp/index.html"><strong>Luxe Official Site</strong></a></strong><br />
 <strong><a href="https://www.team-lab.com/luxe/"><strong>Project on teamLab</strong></a></strong></p>
-]]></content:encoded>
-					
-		
-		
-			</item>
-		<item>
-		<title>Proliferating Immense Life &#8211; A Whole Year per Year</title>
-		<link>https://momentchan.github.io/mingjyunhung/projects/proliferating-immense-life-a-whole-year-per-year/</link>
-		
-		<dc:creator><![CDATA[admin]]></dc:creator>
-		<pubDate>Wed, 13 Apr 2022 00:07:01 +0000</pubDate>
-				<category><![CDATA[Exhibition]]></category>
-		<guid isPermaLink="false">https://mingjyunhung.com/?post_type=project&#038;p=519</guid>
-
-					<description><![CDATA[&#160; Throughout the year, with the passing of time, flowers bloom and change. They bud, grow, and blossom before their petals begin to wither and eventually fade away. The cycle of growth and decay repeats itself in perpetuity. When people touch them, the flowers scatter, wither, and die. &#160; The artwork is not a pre-recorded [&#8230;]]]></description>
-										<content:encoded><![CDATA[<div class="epyt-video-wrapper"><iframe loading="lazy"  id="_ytid_41273"  width="800" height="450"  data-origwidth="800" data-origheight="450"  data-relstop="1" src="https://www.youtube.com/embed/-2rF7YjMztI?enablejsapi=1&autoplay=0&cc_load_policy=0&cc_lang_pref=&iv_load_policy=3&loop=0&modestbranding=0&rel=0&fs=0&playsinline=0&autohide=2&theme=dark&color=white&controls=1&" class="__youtube_prefs__  no-lazyload" title="YouTube player"  allow="fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-no-lazy="1" data-skipgform_ajax_framebjll=""></iframe></div>
-<p>&nbsp;</p>
-<p>Throughout the year, with the passing of time, flowers bloom and change.</p>
-<p>They bud, grow, and blossom before their petals begin to wither and eventually fade away.</p>
-<p>The cycle of growth and decay repeats itself in perpetuity.</p>
-<p>When people touch them, the flowers scatter, wither, and die.</p>
-<p>&nbsp;</p>
-<p>The artwork is not a pre-recorded image that is played back: it is created by a computer program that continuously renders the work in real time.</p>
-<p>The interaction between people and the installation causes continuous change in the artwork: previous visual states can never be replicated, and will never reoccur.</p>
-<p>The picture at this moment can never be seen again.</p>
-<p>&nbsp;</p>
-<p><strong><a href="https://www.teamlab.art/w/proliferating_immense_life_year/"><strong>Official Site</strong></a></strong></p>
 ]]></content:encoded>
 					
 		
